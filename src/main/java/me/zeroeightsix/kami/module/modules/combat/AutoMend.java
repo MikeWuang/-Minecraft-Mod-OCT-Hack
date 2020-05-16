@@ -77,9 +77,7 @@ public class AutoMend extends Module {
                 mc.player.inventory.currentItem = xpSlot;
             }
             if (autoThrow.getValue() && mc.player.getHeldItemMainhand().getItem() == Items.EXPERIENCE_BOTTLE) {
-                ModuleManager.getModule("PitchLock").enable();
                 mc.rightClickMouse();
-                ModuleManager.getModule("PitchLock").disable();
 
             }
         }
