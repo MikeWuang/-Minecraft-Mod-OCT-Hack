@@ -108,7 +108,6 @@ public class Surround extends Module {
     /* End of Autocenter */
 
     public int onEnable() {
-        ModuleManager.getModule("NutGodCA").disable();
         if (mc.player == null) return 0;
         /* Autocenter */
         BlockPos centerPos = mc.player.getPosition();
@@ -152,7 +151,6 @@ public class Surround extends Module {
     }
 
     public int onDisable() {
-        ModuleManager.getModule("NutGodCA").enable();
         if (mc.player != null) {
             if (debugMsgs.getValue().equals(DebugMsgs.ALL)) {
                 sendChatMessage(getChatName() + " Disabling");
