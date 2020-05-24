@@ -2,6 +2,7 @@ package me.zeroeightsix.kami.gui.kami.theme.staticui;
 
 import me.zeroeightsix.kami.gui.kami.RenderHelper;
 import me.zeroeightsix.kami.gui.kami.component.Radar;
+import me.zeroeightsix.kami.gui.kami.theme.kami.KamiGuiColors;
 import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.util.EntityUtil;
@@ -12,6 +13,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import org.lwjgl.opengl.GL11;
 
+import static me.zeroeightsix.kami.util.ColourConverter.toF;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
@@ -81,7 +83,7 @@ public class RadarUI extends AbstractComponentUI<Radar> {
 
         GL11.glLineWidth(1.8f);
 //        glColor4f(1,1,1,1f);
-        glColor3f(1.91f, 0F, 2.55F);
+        glColor3f(toF(KamiGuiColors.GuiC.windowOutline.color.getRed()), toF(KamiGuiColors.GuiC.windowOutline.color.getGreen()), toF(KamiGuiColors.GuiC.windowOutline.color.getBlue()));
         GL11.glEnable(GL_LINE_SMOOTH);
         RenderHelper.drawCircleOutline(0, 0, radius);
         GL11.glDisable(GL_LINE_SMOOTH);

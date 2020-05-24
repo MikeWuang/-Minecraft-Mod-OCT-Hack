@@ -10,8 +10,8 @@ import static me.zeroeightsix.kami.KamiMod.APP_ID;
 import static me.zeroeightsix.kami.KamiMod.MODULE_MANAGER;
 
 /**
- * @author S-B99
- * Updated by S-B99 on 13/01/20
+ * @author dominikaaaa
+ * Updated by dominikaaaa on 13/01/20
  * Updated (slightly) by Dewy on 3rd April 2020
  */
 public class DiscordPresence {
@@ -71,7 +71,7 @@ public class DiscordPresence {
         DiscordPresence.presence.details = details;
         DiscordPresence.presence.state = state;
         DiscordPresence.presence.largeImageKey = "kami";
-        DiscordPresence.presence.largeImageText = "OCT on Top. Future, Impact, WWE, Kami, Obamahack, Plivid.cc, Nutgod, Aurora, Turok, LeafHack, Wurst, AceHack, SnowHack, Atom, Salhack, Fira Client, WikiHack on Bottom! ";
+        DiscordPresence.presence.largeImageText = "OCT On Top";
         DiscordPresence.rpc.Discord_UpdatePresence(DiscordPresence.presence);
     }
 

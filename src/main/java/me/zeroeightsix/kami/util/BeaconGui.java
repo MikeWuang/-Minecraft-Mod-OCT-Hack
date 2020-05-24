@@ -61,8 +61,8 @@ public class BeaconGui extends GuiBeacon {
     protected void actionPerformed(GuiButton button) throws IOException {
         super.actionPerformed(button);
 
-        if (button instanceof BeaconGui.PowerButtonCustom) {
-            BeaconGui.PowerButtonCustom guibeacon$powerbutton = (BeaconGui.PowerButtonCustom)button;
+        if (button instanceof PowerButtonCustom) {
+            PowerButtonCustom guibeacon$powerbutton = (PowerButtonCustom)button;
 
             if (guibeacon$powerbutton.isSelected()) return;
 
@@ -79,7 +79,7 @@ public class BeaconGui extends GuiBeacon {
 
     }
 
-    class PowerButtonCustom extends BeaconGui.Button {
+    class PowerButtonCustom extends Button {
         private final Potion effect;
         private final int tier;
 

@@ -1,7 +1,7 @@
 package me.zeroeightsix.kami.module.modules.hidden;
 
 import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.modules.gui.Capes;
+import me.zeroeightsix.kami.module.modules.gui.Gui;
 import me.zeroeightsix.kami.module.modules.chat.CustomChat;
 import me.zeroeightsix.kami.module.modules.client.*;
 import me.zeroeightsix.kami.module.modules.misc.DiscordRPC;
@@ -31,7 +31,7 @@ public class RunConfig extends Module {
         MODULE_MANAGER.getModule(InventoryViewer.class).enable();
 
         if (!hasRunCapes.getValue()) {
-            MODULE_MANAGER.getModule(Capes.class).enable();
+            MODULE_MANAGER.getModule(Gui.class).enable();
             hasRunCapes.setValue(true);
         }
         if (!hasRunDiscordSettings.getValue()) {

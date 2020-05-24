@@ -58,7 +58,7 @@ public class ConfigCommand extends Command {
                         sendChatMessage("&b" + newPath + "&r is not a valid path");
                         break;
                     }
-                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("KAMILastConfig.txt"))) {
+                    try (BufferedWriter writer = Files.newBufferedWriter(Paths.get("OCTLastConfig.txt"))) {
                         writer.write(newPath);
                         reload();
                         sendChatMessage("Configuration path set to &b" + newPath + "&r!");
@@ -76,7 +76,6 @@ public class ConfigCommand extends Command {
     }
 
     private void reload() {
-        KamiMod.getInstance().guiManager = new KamiGUI();
         KamiMod.getInstance().guiManager.initializeGUI();
         KamiMod.loadConfiguration();
         sendChatMessage("Configuration reloaded!");

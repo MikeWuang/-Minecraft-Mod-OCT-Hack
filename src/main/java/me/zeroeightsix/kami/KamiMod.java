@@ -3,7 +3,6 @@ package me.zeroeightsix.kami;
 import com.google.common.base.Converter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import me.zero.alpine.EventBus;
 import me.zero.alpine.EventManager;
@@ -31,8 +30,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
@@ -41,7 +38,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -65,28 +61,25 @@ import static me.zeroeightsix.kami.DiscordPresence.setCustomIcons;
 public class KamiMod {
 
     public static final String MODNAME = "OCT Hack";
-    public static final String MODID = "kamiblue";
-    public static final String MODVER = "v1.0.3"; // this is changed to v1.1.2-commit for debugging during travis releases
-    public static final String MODVERSMALL = "v1.0.3"; // shown to the user
-    public static final String MODVERBROAD = "v1.0.3"; // used for update checking
+    public static final String MODID = "octhack";
+    public static final String MODVER = "v1.0.8";
+    public static final String MODVERSMALL = "v1.0.8";
+    public static final String MODVERBROAD = "v1.0.8";
 
     public static final String MCVER = "1.12.2";
 
     public static final String APP_ID = "711088988605120573";
 
-    private static final String UPDATE_JSON = "https://raw.githubusercontent.com/kami-blue/assets/assets/assets/updateChecker.json";
     public static final String DONATORS_JSON = "https://raw.githubusercontent.com/kami-blue/assets/assets/assets/donators.json";
-    public static final String CAPES_JSON = "https://raw.githubusercontent.com/kami-blue/assets/assets/assets/capes.json";
-    public static final String GITHUB_LINK = "https://github.com/kami-blue/";
-    public static final String WEBSITE_LINK = "https://blue.bella.wtf";
-
-    public static final String KAMI_KANJI = "";
+    public static final String CAPES_JSON = "https://raw.githubusercontent.com/OccultMC/assets/master/assets/capes.json";
+    public static final String GITHUB_LINK = "https://www.github.com/OccultMC";
+    public static final String KAMI_KANJI = "OCT Hack";
     public static final char colour = '\u00A7';
     public static final char separator = '\u23d0';
 
-    private static final String KAMI_CONFIG_NAME_DEFAULT = "OCTConfig.json";
+    private static final String KAMI_CONFIG_NAME_DEFAULT = "OCTHackConfig.json";
 
-    public static final Logger log = LogManager.getLogger("KAMI Blue");
+    public static final Logger log = LogManager.getLogger("OCT Hack");
 
     public static final EventBus EVENT_BUS = new EventManager();
     public static final ModuleManager MODULE_MANAGER = new ModuleManager();
@@ -113,14 +106,9 @@ public class KamiMod {
     }).buildAndRegister("");
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {
-        updateCheck();
-    }
-
-    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         setCustomIcons();
-        Display.setTitle(MODNAME + " " + KAMI_KANJI + " " + MODVERSMALL);
+        Display.setTitle(MODNAME + " " + MODVERSMALL);
     }
 
     @Mod.EventHandler
@@ -161,7 +149,7 @@ public class KamiMod {
     }
 
     public static String getConfigName() {
-        Path config = Paths.get("OCTLastConfig.txt");
+        Path config = Paths.get("OCTHackLastConfig.txt");
         String kamiConfigName = KAMI_CONFIG_NAME_DEFAULT;
         try (BufferedReader reader = Files.newBufferedReader(config)) {
             kamiConfigName = reader.readLine();
@@ -265,28 +253,4 @@ public class KamiMod {
         return commandManager;
     }
 
-    public void updateCheck() {
-        try {
-            KamiMod.log.info("Attempting KAMI Blue update check...");
-
-            JsonParser parser = new JsonParser();
-            String latestVersion = parser.parse(IOUtils.toString(new URL(UPDATE_JSON))).getAsJsonObject().getAsJsonObject("version").get(MCVER + "-latest").getAsString();
-
-            isLatest = latestVersion.equals(MODVERBROAD);
-            latest = latestVersion;
-
-            if (!isLatest) {
-                KamiMod.log.warn("You are running an outdated version of KAMI Blue.\nCurrent: " + MODVERBROAD + "\nLatest: " + latestVersion);
-
-                return;
-            }
-
-            KamiMod.log.info("Your KAMI Blue (" + MODVERBROAD + ") is up-to-date with the latest stable release.");
-        } catch (IOException e) {
-            latest = null;
-
-            KamiMod.log.error("Oes noes! An exception was thrown during the update check.");
-            e.printStackTrace();
-        }
-    }
 }

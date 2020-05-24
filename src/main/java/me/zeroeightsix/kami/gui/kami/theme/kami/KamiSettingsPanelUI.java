@@ -6,6 +6,9 @@ import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.module.modules.experimental.GUIColour;
 import org.lwjgl.opengl.GL11;
+import static me.zeroeightsix.kami.gui.kami.theme.kami.KamiGuiColors.GuiC;
+import static me.zeroeightsix.kami.util.ColourConverter.toF;
+import static org.lwjgl.opengl.GL11.*;
 
 import static me.zeroeightsix.kami.KamiMod.MODULE_MANAGER;
 
@@ -30,7 +33,7 @@ public class KamiSettingsPanelUI extends AbstractComponentUI<SettingsPanel> {
         }
 
         RenderHelper.drawFilledRectangle(0.0F, 0.0F, (float) component.getWidth(), (float) component.getHeight());
-        GL11.glColor3f(1.91f, 0F, 2.55F);
+        glColor3f(toF(GuiC.windowOutline.color.getRed()), toF(GuiC.windowOutline.color.getGreen()), toF(GuiC.windowOutline.color.getBlue()));
         GL11.glLineWidth(1.5F);
         RenderHelper.drawRectangle(0.0F, 0.0F, (float) component.getWidth(), (float) component.getHeight());
     }

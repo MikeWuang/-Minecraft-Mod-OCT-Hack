@@ -20,7 +20,7 @@ public class RootSliderUI extends AbstractComponentUI<Slider> {
 
     @Override
     public void renderComponent(Slider component, FontRenderer aa) {
-        glColor4f(toF(GuiC.sliderColour.color.getRed()), toF(GuiC.sliderColour.color.getGreen()), toF(GuiC.sliderColour.color.getBlue()), component.getOpacity());
+        glColor3f(toF(GuiC.buttonIdleT.color.getRed()), toF(GuiC.buttonIdleT.color.getGreen()), toF(GuiC.buttonIdleT.color.getBlue()));
         glLineWidth(2.5f);
         int height = component.getHeight();
         double value = component.getValue();

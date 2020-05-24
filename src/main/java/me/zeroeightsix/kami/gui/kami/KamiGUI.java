@@ -73,8 +73,8 @@ public class KamiGUI extends GUI {
             if (!categoryScrollpaneHashMap.containsKey(moduleCategory)) {
                 Stretcherlayout stretcherlayout = new Stretcherlayout(1);
                 stretcherlayout.setComponentOffsetWidth(0);
-                Scrollpane scrollpane = new Scrollpane(getTheme(), stretcherlayout, 300, 480);
-                scrollpane.setMaximumHeight(400);
+                Scrollpane scrollpane = new Scrollpane(getTheme(), stretcherlayout, 300, 380);
+                scrollpane.setMaximumHeight(300);
                 categoryScrollpaneHashMap.put(moduleCategory, new Pair<>(scrollpane, new SettingsPanel(getTheme(), null)));
             }
 

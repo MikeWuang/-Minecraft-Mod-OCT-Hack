@@ -23,7 +23,7 @@ public class Label extends AlignedComponent {
     public Label(String text, boolean multiline) {
         this.text = text;
         this.multiline = multiline;
-        setAlignment(AlignedComponent.Alignment.LEFT);
+        setAlignment(Alignment.LEFT);
     }
 
     public String getText() {

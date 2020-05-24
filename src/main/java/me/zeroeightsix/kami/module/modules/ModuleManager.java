@@ -1,7 +1,8 @@
-package me.zeroeightsix.kami.module;
+package me.zeroeightsix.kami.module.modules;
 
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.event.events.RenderEvent;
+import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.modules.ClickGUI;
 import me.zeroeightsix.kami.util.ClassFinder;
 import me.zeroeightsix.kami.util.EntityUtil;
@@ -25,11 +26,7 @@ public class ModuleManager {
     /**
      * Linked map for the registered Modules
      */
-    private static Map<Class<? extends Module>, Module> modules = new LinkedHashMap<>();
-
-    public static Module getModuleByName(String flight) {
-        return null;
-    }
+    private Map<Class<? extends Module>, Module> modules = new LinkedHashMap<>();
 
     /**
      * Registers modules, and then calls updateLookup() for indexing.
@@ -138,7 +135,7 @@ public class ModuleManager {
      * @deprecated Use `getModule(Class<? extends Module>)` instead
      */
     @Deprecated
-    public static Module getModule(String name) {
+    public Module getModule(String name) {
         for (Map.Entry<Class<? extends Module>, Module> module : modules.entrySet()) {
             if (module.getClass().getSimpleName().equalsIgnoreCase(name) || module.getValue().getOriginalName().equalsIgnoreCase(name)) {
                 return module.getValue();
@@ -155,7 +152,7 @@ public class ModuleManager {
      * @deprecated Use `isModuleEnabled(Class<? extends Module>)` instead
      */
     @Deprecated
-    public static boolean isModuleEnabled(String moduleName) {
+    public boolean isModuleEnabled(String moduleName) {
         return getModule(moduleName).isEnabled();
     }
 

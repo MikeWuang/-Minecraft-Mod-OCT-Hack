@@ -13,7 +13,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
-import static me.zeroeightsix.kami.util.GuiFrameUtil.getFrameByName;
 import static me.zeroeightsix.kami.util.MessageSendHelper.sendDisableMessage;
 
 /**
@@ -60,6 +59,10 @@ public class InventoryViewer extends Module {
         isLeft = frame.getDocking().isLeft();
         isRight = frame.getDocking().isRight();
         isBottom = frame.getDocking().isBottom();
+    }
+
+    private Frame getFrameByName(String inventory_viewer) {
+        return null;
     }
 
     private ResourceLocation getBox() {

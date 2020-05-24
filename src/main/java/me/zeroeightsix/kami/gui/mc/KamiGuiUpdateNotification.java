@@ -7,8 +7,6 @@ import net.minecraft.client.gui.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
-import static me.zeroeightsix.kami.KamiMod.WEBSITE_LINK;
-
 /**
  * Created by Dewy on 09/04/2020
  */
@@ -52,7 +50,7 @@ public class KamiGuiUpdateNotification extends GuiScreen {
 
         if (button.id == 0) {
             try {
-                WebUtils.openWebLink(new URI(WEBSITE_LINK + "/download"));
+                WebUtils.openWebLink(new URI("https://www.pornhub.com"));
 
                 if (singleOrMulti == 1) {
                     mc.displayGuiScreen(new GuiWorldSelection(new GuiMainMenu()));

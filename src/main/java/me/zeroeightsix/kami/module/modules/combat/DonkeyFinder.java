@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static me.zeroeightsix.kami.util.MessageSendHelper.sendChatMessage;
-import static me.zeroeightsix.kami.util.MessageSendHelper.sendServerMessage;
 
 /**
  * Created on 26 October 2019 by hub
@@ -24,7 +23,6 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendServerMessage;
 @Module.Info(name = "DonkeyFinder", description = "Shows players who enter and leave range in chat", category = Module.Category.EXPERIMENTAL)
 public class DonkeyFinder extends Module {
     private Setting<Boolean> leaving = register(Settings.b("Leaving", false));
-    private Setting<Boolean> uwuAura = register(Settings.b("UwU Aura", false));
 
     private List<String> knownPlayers;
 
@@ -52,8 +50,6 @@ public class DonkeyFinder extends Module {
                         mc.getSoundHandler().playSound(PositionedSoundRecord.getRecord(SoundEvents.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.0F));
                         sendNotification(ChatFormatting.RED.toString() + playerName + ChatFormatting.RESET.toString() + " entered Your Visual Range");
                     }
-                    if (uwuAura.getValue()) sendServerMessage("/w "+ playerName + " hi uwu");
-
                     return;
                 }
             }
@@ -70,7 +66,6 @@ public class DonkeyFinder extends Module {
                         } else {
                             sendNotification(ChatFormatting.RED.toString() + playerName + ChatFormatting.RESET.toString() + " left the Battlefield!");
                         }
-                        if (uwuAura.getValue()) sendServerMessage(("/w "+ playerName + " bye uwu"));
                     }
 
                     return;

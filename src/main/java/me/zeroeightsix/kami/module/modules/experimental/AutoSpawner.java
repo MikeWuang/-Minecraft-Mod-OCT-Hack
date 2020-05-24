@@ -33,7 +33,7 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendChatMessage;
  * Updated 27 November 2019 by hub
  * Updated by S-B99 on 16/04/20
  */
-@Module.Info(name = "AutoSpawner", category = Module.Category.EXPERIMENTAL, description = "Automatically spawns Withers, Iron Golems and Snowmen")
+@Module.Info(name = "AutoSpawner          ", category = Module.Category.EXPERIMENTAL, description = "Automatically spawns Withers, Iron Golems and Snowmen")
 public class AutoSpawner extends Module {
 
     private Setting<UseMode> useMode = register(Settings.e("Use Mode", UseMode.SPAM));

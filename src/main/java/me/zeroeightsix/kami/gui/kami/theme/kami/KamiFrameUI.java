@@ -17,7 +17,6 @@ import me.zeroeightsix.kami.gui.rgui.util.Docking;
 import me.zeroeightsix.kami.util.Bind;
 import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.Wrapper;
-import org.lwjgl.opengl.GL11;
 
 import static me.zeroeightsix.kami.gui.kami.theme.kami.KamiGuiColors.GuiC;
 import static me.zeroeightsix.kami.util.ColourConverter.toF;
@@ -52,10 +51,10 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
         glColor3f(toF(GuiC.windowOutline.color.getRed()), toF(GuiC.windowOutline.color.getGreen()), toF(GuiC.windowOutline.color.getBlue()));
         glLineWidth(GuiC.windowOutlineWidth.aFloat);
         RenderHelper.drawRectangle(0, 0, component.getWidth(), component.getHeight()); // Border / Outline
-        GL11.glColor3f(1.91f, 0F, 2.55F);
+        glColor3f(toF(GuiC.windowOutline.color.getRed()), toF(GuiC.windowOutline.color.getGreen()), toF(GuiC.windowOutline.color.getBlue()));
         RenderHelper.drawFilledRectangle(0, 0, component.getWidth(), ff.getStringHeight(component.getTitle())+ 1);
 
-        GL11.glColor3f(1, 1, 1);
+        glColor3f(1, 1, 1);
         ff.drawString(component.getWidth() / 2 - ff.getStringWidth(component.getTitle()) / 2, 1, component.getTitle());
 
         int top_y = 5;
@@ -267,7 +266,6 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
                 xLineComponent = null;
 
                 component.setDocking(Docking.NONE);
-
                 KamiGUI rootGUI = KamiMod.getInstance().getGuiManager();
                 for (Component c : rootGUI.getChildren()) {
                     if (c.equals(component)) continue;

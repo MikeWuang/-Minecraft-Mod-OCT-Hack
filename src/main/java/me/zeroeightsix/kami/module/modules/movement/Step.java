@@ -16,15 +16,17 @@ public class Step extends Module {
 
     private Setting<Float> stepHeightSetting = register(Settings.floatBuilder("Step Height").withMinimum((float) 0).withMaximum((float) 6).withValue((float) 1).build());
 
-    @Override
-    public void onUpdate() {
-        DecimalFormat df = new DecimalFormat("#");
-        mc.player.stepHeight = Float.parseFloat(df.format(stepHeightSetting.getValue()));
-    }
 
-    @Override
     public int onDisable() {
         mc.player.stepHeight = 0.5F;
         return 0;
+    }
+
+
+    @Override
+
+    public void onUpdate() {
+        DecimalFormat df = new DecimalFormat("#");
+        mc.player.stepHeight = Float.parseFloat(df.format(stepHeightSetting.getValue()));
     }
 }

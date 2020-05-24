@@ -10,7 +10,7 @@ import java.awt.*;
 public class KamiGuiColors {
 
     public enum GuiC {
-        bgColour(new Color(191, 0, 255, 255)), // normal colored
+        bgColour(new Color(204, 51, 255, 255)), // normal colored
         bgColourHover(new Color(157, 54, 191)), // light colored
 
         buttonPressed(new Color(211, 101, 247)),
@@ -22,7 +22,7 @@ public class KamiGuiColors {
         buttonIdleT(new Color(213, 158, 232, 255)), // lighter colored
         buttonHoveredT((new Color(buttonIdleT.color.getRGB())).brighter()),
 
-        windowOutline(new Color(211, 101, 247)),
+        windowOutline(new Color(191, 0, 255)),
         windowOutlineWidth(1.8f),
 
         pinnedWindow(new Color(211, 101, 247)),

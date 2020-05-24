@@ -22,15 +22,15 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendDisableMessage;
  * Created by S-B99 on 20/03/20
  * Updated by S-B99 on 04/04/20
  */
-@Module.Info(name = "ActiveModules", category = Module.Category.CLIENT, description = "Configures ActiveModules colours and modes", showOnArray = Module.ShowOnArray.OFF)
+@Module.Info(name = "ActiveModules        ", category = Module.Category.CLIENT, description = "Configures ActiveModules colours and modes", showOnArray = Module.ShowOnArray.OFF)
 public class ActiveModules extends Module {
     public UnboundSlider potion;
     private Setting<Boolean> forgeHax = register(Settings.b("ForgeHax", false));
-    public Setting<Mode> mode = register(Settings.e("Mode", Mode.RAINBOW));
+    public Setting<Mode> mode = register(Settings.e("Mode", Mode.CUSTOM));
     private Setting<Integer> rainbowSpeed = register(Settings.integerBuilder().withName("Speed R").withValue(30).withMinimum(0).withMaximum(100).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
     public Setting<Integer> saturationR = register(Settings.integerBuilder().withName("Saturation R").withValue(117).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
     public Setting<Integer> brightnessR = register(Settings.integerBuilder().withName("Brightness R").withValue(255).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
-    public Setting<Integer> hueC = register(Settings.integerBuilder().withName("Hue C").withValue(178).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
+    public Setting<Integer> hueC = register(Settings.integerBuilder().withName("Hue C").withValue(0).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     public Setting<Integer> saturationC = register(Settings.integerBuilder().withName("Saturation C").withValue(156).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     public Setting<Integer> brightnessC = register(Settings.integerBuilder().withName("Brightness C").withValue(255).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     private Setting<Boolean> alternate = register(Settings.booleanBuilder().withName("Alternate").withValue(true).withVisibility(v -> mode.getValue().equals(Mode.INFO_OVERLAY)).build());
