@@ -1,7 +1,7 @@
 package me.zeroeightsix.kami.module.modules.hidden;
 
 import me.zeroeightsix.kami.module.Module;
-import me.zeroeightsix.kami.module.modules.capes.Capes;
+import me.zeroeightsix.kami.module.modules.gui.Capes;
 import me.zeroeightsix.kami.module.modules.chat.CustomChat;
 import me.zeroeightsix.kami.module.modules.client.*;
 import me.zeroeightsix.kami.module.modules.misc.DiscordRPC;

@@ -1,4 +1,4 @@
-package me.zeroeightsix.kami.module.modules.capes;
+package me.zeroeightsix.kami.module.modules.gui;
 
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.renderer.GlStateManager;
