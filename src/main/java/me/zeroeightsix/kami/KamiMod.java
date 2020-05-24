@@ -47,12 +47,6 @@ import java.util.Map;
 import java.util.Optional;
 
 import static me.zeroeightsix.kami.DiscordPresence.setCustomIcons;
-
-/**
- * Created by 086 on 7/11/2017.
- * Updated by S-B99 on 25/03/19
- * Updated by Dewy on 09/04/2020
- */
 @Mod(
         modid = KamiMod.MODID,
         name = KamiMod.MODNAME,
@@ -71,7 +65,7 @@ public class KamiMod {
     public static final String APP_ID = "711088988605120573";
 
     public static final String DONATORS_JSON = "https://raw.githubusercontent.com/kami-blue/assets/assets/assets/donators.json";
-    public static final String CAPES_JSON = "https://raw.githubusercontent.com/OccultMC/assets/master/assets/capes.json";
+    public static final String CAPES_JSON = "https://raw.githubusercontent.com/OccultMC/assets/capes/assets/capes.json";
     public static final String GITHUB_LINK = "https://www.github.com/OccultMC";
     public static final String KAMI_KANJI = "OCT Hack";
     public static final char colour = '\u00A7';
