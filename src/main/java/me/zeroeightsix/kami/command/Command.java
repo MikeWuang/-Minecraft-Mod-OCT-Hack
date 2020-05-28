@@ -28,10 +28,7 @@ public abstract class Command {
         this.aliases = Arrays.asList(aliases);
     }
 
-    public static void sendRawChatMessage(String s) {
-    }
-
-    public static void sendChatMessage(String msg) {
+    public static void sendChatMessage(String s) {
     }
 
     protected void setDescription(String description) {

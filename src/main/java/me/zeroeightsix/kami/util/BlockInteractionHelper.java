@@ -168,10 +168,4 @@ public class BlockInteractionHelper {
         return false;
     }
 
-    public static void directionSpeed(Float value) {
-    }
-
-    public static List<BlockPos> getCircle(BlockPos playerPos, int i, Integer value, boolean b) {
-        return null;
-    }
 }

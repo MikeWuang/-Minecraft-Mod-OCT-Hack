@@ -20,15 +20,20 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 /**
  * Created by 20kdc on 15/02/2020.
- * Updated by S-B99 on 17/02/20
+ * Updated by dominikaaaa on 17/02/20
  * Note for anybody using this in a development environment: THIS DOES NOT WORK. It will lag and the texture will break
  */
-@Module.Info(name = "XRay", category = Module.Category.RENDER, description = "See through common blocks!")
-@EventBusSubscriber(modid = KamiMod.MODID)
+@Module.Info(
+        name = "XRay",
+        category = Module.Category.RENDER,
+        description = "See through common blocks!")
+@EventBusSubscriber(modid = KamiMod.MODID
+)
 public class XRay extends Module {
     // A default reasonable configuration for the XRay. Most people will want to use it like this.
     private static final String DEFAULT_XRAY_CONFIG = "minecraft:grass,minecraft:dirt,minecraft:netherrack,minecraft:gravel,minecraft:sand,minecraft:stone";
@@ -40,11 +45,6 @@ public class XRay extends Module {
     }).build());
     public Setting<Boolean> invert = register(Settings.booleanBuilder("Invert").withValue(false).withConsumer((old, value) -> {
         invertStatic = value;
-        if (isEnabled())
-            mc.renderGlobal.loadRenderers();
-    }).build());
-    private Setting<Boolean> outlines = register(Settings.booleanBuilder("Outlines").withValue(true).withConsumer((old, value) -> {
-        outlinesStatic = value;
         if (isEnabled())
             mc.renderGlobal.loadRenderers();
     }).build());
@@ -62,6 +62,11 @@ public class XRay extends Module {
 
     public XRay() {
         invertStatic = invert.getValue();
+        Setting<Boolean> outlines = register(Settings.booleanBuilder("Outlines").withValue(true).withConsumer((old, value) -> {
+            outlinesStatic = value;
+            if (isEnabled())
+                mc.renderGlobal.loadRenderers();
+        }).build());
         outlinesStatic = outlines.getValue();
         refreshHiddenBlocksSet(hiddenBlockNames.getValue());
     }
@@ -144,7 +149,7 @@ public class XRay extends Module {
     @SubscribeEvent
     public static void registerItems(RegistryEvent.Register<Item> event) {
         // this runs after transparentBlock is set, right?
-        event.getRegistry().registerAll(new ItemBlock(transparentBlock).setRegistryName(transparentBlock.getRegistryName()));
+        event.getRegistry().registerAll(new ItemBlock(transparentBlock).setRegistryName(Objects.requireNonNull(transparentBlock.getRegistryName())));
     }
 
     public static IBlockState transform(IBlockState input) {
@@ -162,19 +167,17 @@ public class XRay extends Module {
     }
 
     @Override
-    protected int onEnable() {
+    protected void onEnable() {
         // This is important because otherwise the changes in ChunkCache behavior won't propagate.
         // Also needs to be done if shouldHide effects change.
         mc.renderGlobal.loadRenderers();
-        return 0;
     }
 
     @Override
-    protected int onDisable() {
+    protected void onDisable() {
         // This is important because otherwise the changes in ChunkCache behavior won't propagate.
         // Also needs to be done if shouldHide effects change.
         mc.renderGlobal.loadRenderers();
-        return 0;
     }
 
 }

@@ -1,12 +1,9 @@
 package me.zeroeightsix.kami.mixin.client;
 
 import com.google.common.base.Predicate;
-import me.zeroeightsix.kami.module.modules.misc.CameraClip;
 import me.zeroeightsix.kami.module.modules.player.Freecam;
 import me.zeroeightsix.kami.module.modules.player.NoEntityTrace;
-import me.zeroeightsix.kami.module.modules.render.AntiFog;
-import me.zeroeightsix.kami.module.modules.render.Brightness;
-import me.zeroeightsix.kami.module.modules.render.NoHurtCam;
+import me.zeroeightsix.kami.module.modules.render.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -16,6 +13,7 @@ import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.RayTraceResult;
@@ -48,9 +46,16 @@ public class MixinEntityRenderer {
             return world.rayTraceBlocks(start, end);
     }
 
+    @Inject(method = "displayItemActivation", at = @At(value = "HEAD"), cancellable = true)
+    public void displayItemActivation(ItemStack stack, CallbackInfo callbackInfo) {
+        if (MODULE_MANAGER.getModuleT(AntiOverlay.class).isEnabled() && MODULE_MANAGER.getModuleT(AntiOverlay.class).totems.getValue()) {
+            callbackInfo.cancel();
+        }
+    }
+
     @Inject(method = "setupFog", at = @At(value = "HEAD"), cancellable = true)
     public void setupFog(int startCoords, float partialTicks, CallbackInfo callbackInfo) {
-        if (AntiFog.enabled() && AntiFog.mode.getValue() == AntiFog.VisionMode.NOFOG)
+        if (AntiFog.enabled() && AntiFog.mode.getValue() == AntiFog.VisionMode.NO_FOG)
             callbackInfo.cancel();
     }
 

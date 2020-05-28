@@ -7,6 +7,7 @@ import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.gui.kami.component.SettingsPanel;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
+import me.zeroeightsix.kami.module.modules.client.CommandConfig;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.builder.SettingBuilder;
@@ -19,9 +20,12 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
+import static me.zeroeightsix.kami.KamiMod.MODULE_MANAGER;
+import static me.zeroeightsix.kami.util.MessageSendHelper.sendChatMessage;
+
 /**
  * Created by 086 on 23/08/2017.
- * Updated by S-B99 on 15/04/20
+ * Updated by dominikaaaa on 15/04/20
  */
 public class Module {
 
@@ -59,10 +63,6 @@ public class Module {
     public Bind getBind() {
         return bind.getValue();
     }
-
-//    public boolean showOnArray() {
-//        return showOnArray.getValue();
-//    }
 
     public enum ShowOnArray {
         ON, OFF
@@ -129,7 +129,7 @@ public class Module {
     }
 
     public String getChatName() {
-        return "[" + name.getValue() + "] ";
+        return "[" + name.getValue() + "]";
     }
 
     public String getDescription() { return description; }
@@ -142,12 +142,14 @@ public class Module {
 
     public boolean isProduction() { return !category.equals(Category.EXPERIMENTAL) && !category.equals(Category.HIDDEN); }
 
-    protected int onEnable() {
-        return 0;
-    }
+    protected void onEnable() {}
 
-    protected int onDisable() {
-        return 0;
+    protected void onDisable() {}
+
+    protected void onToggle() {
+        if (!name.getValue().equals("clickGUI") && MODULE_MANAGER.getModuleT(CommandConfig.class).toggleMessages.getValue()) {
+            sendChatMessage(name.getValue() + (enabled.getValue() ? " &aenabled" : " &cdisabled"));
+        }
     }
 
     public void toggle() { setEnabled(!isEnabled()); }
@@ -155,6 +157,7 @@ public class Module {
     public void enable() {
         enabled.setValue(true);
         onEnable();
+        onToggle();
         if (!alwaysListening)
             KamiMod.EVENT_BUS.subscribe(this);
     }
@@ -162,6 +165,7 @@ public class Module {
     public void disable() {
         enabled.setValue(false);
         onDisable();
+        onToggle();
         if (!alwaysListening)
             KamiMod.EVENT_BUS.unsubscribe(this);
     }

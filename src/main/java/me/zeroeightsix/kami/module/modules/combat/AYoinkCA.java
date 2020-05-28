@@ -6,7 +6,6 @@ import me.zero.alpine.listener.EventHandler;
 
 import me.zero.alpine.listener.Listener;
 import me.zeroeightsix.kami.event.events.PacketEvent;
-import me.zeroeightsix.kami.event.events.RenderEvent;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 
@@ -14,7 +13,6 @@ import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.util.EntityUtil;
 
 import me.zeroeightsix.kami.util.Friends;
-import me.zeroeightsix.kami.util.KamiTessellator;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.enchantment.EnchantmentHelper;
 
@@ -36,7 +34,6 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
@@ -368,21 +365,19 @@ public class AYoinkCA extends Module {
 	}
 
 	@Override
-	protected int onEnable() {
+	protected void onEnable() {
 
 		if (this.alert.getValue() && AYoinkCA.mc.world != null) {
 			sendRawChatMessage("\u00A7aAutoCrystal ON");
 		}
-		return 0;
 	}
 
-	public int onDisable() {
+	public void onDisable() {
 		if (this.alert.getValue() && AYoinkCA.mc.world != null) {
 			sendRawChatMessage("\u00A7cAutoCrystal" + ChatFormatting.RED.toString() + "OFF");
 		}
 		this.render = null;
 		resetRotation();
-		return 0;
 	}
 
 	private void sendRawChatMessage(String s) {

@@ -7,14 +7,12 @@ import me.zeroeightsix.kami.module.Module;
 public class BaritoneAutoWalk extends Module {
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         mc.player.sendChatMessage("#thisway 100000");
         mc.player.sendChatMessage("#path");
-        return 0;
     }    @Override
-    public int onDisable() {
+    public void onDisable() {
         mc.player.sendChatMessage("#stop");
-        return 0;
     }
 
 }

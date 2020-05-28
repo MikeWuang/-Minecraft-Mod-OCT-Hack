@@ -10,7 +10,11 @@ import java.util.Random;
 /**
  * Created by 086 on 30/01/2018.
  */
-@Module.Info(name = "SkinFlicker", description = "Toggle your skin layers rapidly for a cool skin effect", category = Module.Category.MISC)
+@Module.Info(
+        name = "SkinFlicker",
+        description = "Toggle your skin layers rapidly for a cool skin effect",
+        category = Module.Category.MISC
+)
 public class SkinFlicker extends Module {
 
     private Setting<FlickerMode> mode = register(Settings.e("Mode", FlickerMode.HORIZONTAL));
@@ -56,8 +60,14 @@ public class SkinFlicker extends Module {
         }
     }
 
-    public static enum FlickerMode {
+    public enum FlickerMode {
         HORIZONTAL, VERTICAL, RANDOM
+    }
+
+    public void onDisable() {
+        for (int i = 0 ; i < EnumPlayerModelParts.values().length - 1 ; i++) {
+            mc.gameSettings.setModelPartEnabled(PARTS_VERTICAL[i], true);
+        }
     }
 
 }

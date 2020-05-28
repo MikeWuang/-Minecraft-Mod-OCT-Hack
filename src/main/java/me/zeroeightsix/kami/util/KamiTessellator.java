@@ -9,8 +9,13 @@ import net.minecraft.util.math.BlockPos;
 import static org.lwjgl.opengl.GL11.*;
 
 /**
- * Created by 086 on 9/07/2017.
- * Updated by S-B99 on 18/02/20
+ * THE FOLLOWING CODE IS LICENSED UNDER MIT, AS PER the fr1kin/forgehax license
+ * You can view the original code here: 
+ * 
+ * https://github.com/fr1kin/ForgeHax/blob/master/src/main/java/com/matt/forgehax/util/tesselation/GeometryTessellator.java
+ * 
+ * Some is created by 086 on 9/07/2017.
+ * Updated by dominikaaaa on 18/02/20
  */
 public class KamiTessellator extends Tessellator {
 
@@ -75,6 +80,14 @@ public class KamiTessellator extends Tessellator {
         final int g = (argb >>> 8) & 0xFF;
         final int b = argb & 0xFF;
         drawBox(INSTANCE.getBuffer(), x, y, z, 1, 1, 1, r, g, b, a, sides);
+    }
+
+    public static void drawBox(BlockPos blockPos, int argb, int sides, int h, int w, int d, int i) {
+        final int a = (argb >>> 24) & 0xFF;
+        final int r = (argb >>> 16) & 0xFF;
+        final int g = (argb >>> 8) & 0xFF;
+        final int b = argb & 0xFF;
+        drawBox(INSTANCE.getBuffer(), blockPos.x, blockPos.y, blockPos.z, w, h, d, r, g, b, a, sides);
     }
 
     public static void drawBox(BlockPos blockPos, int r, int g, int b, int a, int sides) {

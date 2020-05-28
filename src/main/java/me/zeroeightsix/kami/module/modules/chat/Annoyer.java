@@ -206,11 +206,10 @@ public class Annoyer extends Module {
     });
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         timer = new Timer();
         if (mc.player == null) {
             this.disable();
-            return 0;
         }
         df = new DecimalFormat("#.#");
         df.setRoundingMode(RoundingMode.CEILING);
@@ -221,15 +220,13 @@ public class Annoyer extends Module {
             }
         };
         timer.schedule(timerTask, 0, delay.getValue() * 1000);
-        return 0;
     }
 
     @Override
-    public int onDisable() {
+    public void onDisable() {
         timer.cancel();
         timer.purge();
         messageQueue.clear();
-        return 0;
     }
 
     @Override

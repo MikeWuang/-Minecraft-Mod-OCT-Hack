@@ -9,6 +9,11 @@ import org.spongepowered.asm.mixin.Mixins;
 
 import java.util.Map;
 
+/**
+ * Modified by Dewy on 20th of May, 2020
+ */
+@IFMLLoadingPlugin.Name("KAMIBlueMixinLoader")
+@IFMLLoadingPlugin.MCVersion("1.12.2")
 public class MixinLoaderForge implements IFMLLoadingPlugin {
 
     /* This is NOT using KamiMod, as importing it causes the issue described here: https://github.com/SpongePowered/Mixin/issues/388 */
@@ -16,10 +21,15 @@ public class MixinLoaderForge implements IFMLLoadingPlugin {
     private static boolean isObfuscatedEnvironment = false;
 
     public MixinLoaderForge() {
-        log.info("KAMI mixins initialized");
+        log.info("KAMI Blue and Baritone mixins initializing...");
+
         MixinBootstrap.init();
-        Mixins.addConfiguration("mixins.kami.json");
+
+        Mixins.addConfigurations("mixins.kami.json", "mixins.baritone.json");
         MixinEnvironment.getDefaultEnvironment().setObfuscationContext("searge");
+
+        log.info("KAMI Blue and Baritone mixins initialised.");
+
         log.info(MixinEnvironment.getDefaultEnvironment().getObfuscationContext());
     }
 
@@ -35,7 +45,7 @@ public class MixinLoaderForge implements IFMLLoadingPlugin {
 
     @Override
     public String getSetupClass() {
-        return null;
+        return "net.shadowfacts.forgelin.preloader.ForgelinSetup";
     }
 
     @Override

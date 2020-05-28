@@ -27,12 +27,8 @@ public class ModuleManager {
      */
     private static Map<Class<? extends Module>, Module> modules = new LinkedHashMap<>();
 
-    public static Module getModuleByName(String flight) {
-        return null;
-    }
-
     /**
-     * Registers modules, and then calls updateLookup() for indexing.
+     * Registers modules
      */
     public void register() {
         KamiMod.log.info("Registering modules...");

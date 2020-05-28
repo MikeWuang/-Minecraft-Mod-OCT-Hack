@@ -1,5 +1,6 @@
 package me.zeroeightsix.kami.gui.kami;
 
+import baritone.api.BaritoneAPI;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import me.zeroeightsix.kami.KamiMod;
 import me.zeroeightsix.kami.gui.kami.component.ActiveModules;
@@ -18,10 +19,8 @@ import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.modules.client.InfoOverlay;
-import me.zeroeightsix.kami.util.ColourHolder;
-import me.zeroeightsix.kami.util.Friends;
-import me.zeroeightsix.kami.util.Pair;
-import me.zeroeightsix.kami.util.Wrapper;
+import me.zeroeightsix.kami.module.modules.movement.AutoWalk;
+import me.zeroeightsix.kami.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -40,11 +39,11 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import static me.zeroeightsix.kami.KamiMod.MODULE_MANAGER;
-import static me.zeroeightsix.kami.util.InfoCalculator.cardinalToAxis;
 
 /**
  * Created by 086 on 25/06/2017.
- * Updated by S-B99 on 28/01/20
+ * Updated by dominikaaaa on 28/01/20
+ * Updated by Dewy on the 22nd of April, 2020
  * @see me.zeroeightsix.kami.module.modules.client.InventoryViewer
  */
 public class KamiGUI extends GUI {
@@ -256,13 +255,10 @@ public class KamiGUI extends GUI {
         frame.setMinimizeable(true);
         frame.setPinnable(true);
         frame.setPinned(true);
+        frame.setMinimumWidth(162);
+        frame.setMinimumHeight(54);
         Label inventory = new Label("");
         inventory.setShadow(false);
-        inventory.addTickListener(() -> { // 1 == 2 px in game
-            inventory.setWidth(151);
-            inventory.setHeight(40);
-            inventory.setOpacity(0.1f); // why does this not do anything
-        });
         frame.addChild(inventory);
         inventory.setFontRenderer(fontRenderer);
         frames.add(frame);
@@ -274,21 +270,48 @@ public class KamiGUI extends GUI {
         frame.setCloseable(false);
         frame.setPinnable(false);
         frame.setMinimizeable(true);
+        frame.setMinimumWidth(60);
+        frame.setMinimumHeight(10);
         Label friends = new Label("");
         friends.setShadow(true);
-
         Frame finalFrame = frame;
         friends.addTickListener(() -> {
             friends.setText("");
             if (!finalFrame.isMinimized()) {
                 Friends.friends.getValue().forEach(friend -> friends.addLine(friend.getUsername()));
-            } else {
-                friends.setWidth(50);
             }
         });
 
         frame.addChild(friends);
         friends.setFontRenderer(fontRenderer);
+        frames.add(frame);
+
+        /*
+         * Baritone
+         */
+        frame = new Frame(getTheme(), new Stretcherlayout(1), "Baritone");
+        frame.setCloseable(false);
+        frame.setPinnable(true);
+        frame.setMinimumWidth(70);
+        Label processes = new Label("");
+        processes.setShadow(true);
+
+        Frame frameFinal = frame;
+
+        processes.addTickListener(() -> {
+            processes.setText("");
+
+            if (!frameFinal.isMinimized() && BaritoneAPI.getProvider().getPrimaryBaritone().getCustomGoalProcess().getGoal() != null) {
+                if (MODULE_MANAGER.isModuleEnabled(AutoWalk.class) && MODULE_MANAGER.getModuleT(AutoWalk.class).mode.getValue().equals(AutoWalk.AutoWalkMode.BARITONE)) {
+                    processes.addLine("Current Process: AutoWalk (" + AutoWalk.direction + ")");
+                } else {
+                    processes.addLine("Current Process: " + BaritoneAPI.getProvider().getPrimaryBaritone().getCustomGoalProcess().getGoal().toString());
+                }
+            }
+        });
+
+        frame.addChild(processes);
+        processes.setFontRenderer(fontRenderer);
         frames.add(frame);
 
         /*
@@ -366,6 +389,7 @@ public class KamiGUI extends GUI {
         frame = new Frame(getTheme(), new Stretcherlayout(1), "Entities");
         Label entityLabel = new Label("");
         frame.setCloseable(false);
+        frame.setMinimumWidth(60);
         Frame finalFrame1 = frame;
         entityLabel.addTickListener(new TickListener() {
             Minecraft mc = Wrapper.getMinecraft();
@@ -392,15 +416,12 @@ public class KamiGUI extends GUI {
                             ));
 
                     entityLabel.setText("");
-                    finalFrame1.setWidth(50);
                     entityCounts.entrySet().stream()
                             .sorted(Map.Entry.comparingByValue())
                             .map(entry -> TextFormatting.GRAY + entry.getKey() + " " + TextFormatting.DARK_GRAY + "x" + entry.getValue())
                             .forEach(entityLabel::addLine);
 
                     //entityLabel.getParent().setHeight(entityLabel.getLines().length * (entityLabel.getTheme().getFontRenderer().getFontHeight()+1) + 3);
-                } else {
-                    finalFrame1.setWidth(50);
                 }
             }
         });
@@ -432,7 +453,6 @@ public class KamiGUI extends GUI {
                 int hposX = (int) (mc.player.posX * f);
                 int hposZ = (int) (mc.player.posZ * f);
 
-                String cardinal = cardinalToAxis(Character.toUpperCase(mc.player.getHorizontalFacing().toString().charAt(0)));
                 /* The 7 and f in the string formatter is the color */
                 String colouredSeparator = KamiMod.colour + "7 " + KamiMod.separator + KamiMod.colour + "r";
                 String ow = String.format("%sf%,d%s7, %sf%,d%s7, %sf%,d %s7",
@@ -459,7 +479,7 @@ public class KamiGUI extends GUI {
                 );
                 coordsLabel.setText("");
                 coordsLabel.addLine(ow);
-                coordsLabel.addLine(cardinal + colouredSeparator + nether);
+                coordsLabel.addLine(MathsUtils.getPlayerCardinal(mc).cardinalName + colouredSeparator + nether);
             }
         });
         frame.addChild(coordsLabel);

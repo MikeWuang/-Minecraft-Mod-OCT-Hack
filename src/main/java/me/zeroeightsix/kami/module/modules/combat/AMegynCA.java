@@ -140,19 +140,17 @@ public class AMegynCA extends Module {
     }
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
 
         if (mc.world == null)
-            return 0;
 
         if (this.chatAlert.getValue()) {
             sendChatMessage("\u00A7aMegyn AutoCrystal ON");
         }
 
-        return 0;
     }
 
-    public int onDisable() {
+    public void onDisable() {
 
         if (chatAlert.getValue()) {
             sendChatMessage("\u00A7a Megyn AutoCrystal" + ChatFormatting.RED.toString() + " OFF");
@@ -160,7 +158,6 @@ public class AMegynCA extends Module {
 
         resetRotation();
 
-        return 0;
     }
 
     private void sendChatMessage(String s) {

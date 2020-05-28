@@ -2,6 +2,7 @@ package me.zeroeightsix.kami.command.commands;
 
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
+import me.zeroeightsix.kami.command.syntax.parsers.EnumParser;
 import me.zeroeightsix.kami.module.modules.render.XRay;
 import net.minecraft.block.Block;
 
@@ -10,12 +11,12 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.*;
 
 /**
  * Created by 20kdc on 17/02/2020.
- * Updated by S-B99 on 17/02/20
+ * Updated by dominikaaaa on 17/02/20
  * Note for anybody using this in a development environment: THIS DOES NOT WORK. It will lag and the texture will break
  */
 public class XRayCommand extends Command {
     public XRayCommand() {
-        super("xray", new ChunkBuilder().append("help").append("+block|-block|=block").append("list|defaults|clear|invert").build());
+        super("xray", new ChunkBuilder().append("command", true, new EnumParser(new String[]{"help", "list", "+block", "-block", "=block", "defaults", "clear", "invert"})).build());
         setDescription("Allows you to add or remove blocks from the &fxray &7module");
     }
 

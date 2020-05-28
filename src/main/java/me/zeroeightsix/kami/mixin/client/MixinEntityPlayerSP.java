@@ -46,6 +46,7 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
 
     /**
      * @author TBM
+     * Used with full permission from TBM - dominikaaaa
      */
     @Inject(method = "displayGUIChest", at = @At("HEAD"), cancellable = true)
     public void onDisplayGUIChest(IInventory chestInventory, CallbackInfo ci) {
@@ -65,5 +66,4 @@ public abstract class MixinEntityPlayerSP extends EntityPlayer {
         KamiMod.EVENT_BUS.post(event);
         if (event.isCancelled()) info.cancel();
     }
-
 }

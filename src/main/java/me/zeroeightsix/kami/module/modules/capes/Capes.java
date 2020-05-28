@@ -1,4 +1,4 @@
-package me.zeroeightsix.kami.module.modules.gui;
+package me.zeroeightsix.kami.module.modules.capes;
 
 import com.google.gson.Gson;
 import me.zeroeightsix.kami.KamiMod;
@@ -23,11 +23,16 @@ import java.util.Map;
 
 /**
  * @author Crystallinqq
- * Updated by S-B99 on 20/12/19
+ * Updated by dominikaaaa on 20/12/19
  * Updated by 20kdc on 17/02/20 - changed implementation method, made a module again, made async
  * Updated by 20kdc on 21/02/20 - unbroke things, sorry!
  */
-@Module.Info(name = "Capes", category = Module.Category.CLIENT, description = "Controls the display of KAMI Blue capes", showOnArray = Module.ShowOnArray.OFF)
+@Module.Info(
+        name = "Capes",
+        category = Module.Category.CLIENT,
+        description = "Controls the display of KAMI Blue capes",
+        showOnArray = Module.ShowOnArray.OFF
+)
 public class Capes extends Module {
 
     // This allows controlling if other capes (Mojang, OptiFine) should override the KAMI Blue cape.
@@ -47,7 +52,7 @@ public class Capes extends Module {
     }
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         // Begin the download if we haven't begun the download before and we're enabling the module.
         // This should reduce server requests, if nothing else...
         if (!hasBegunDownload) {
@@ -81,7 +86,6 @@ public class Capes extends Module {
                 }
             }.start();
         }
-        return 0;
     }
 
     public static ResourceLocation getCapeResource(AbstractClientPlayer player) {

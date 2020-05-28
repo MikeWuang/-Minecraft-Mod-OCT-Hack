@@ -1,6 +1,7 @@
 package me.zeroeightsix.kami.event.events;
 
 import me.zeroeightsix.kami.event.KamiEvent;
+import me.zeroeightsix.kami.util.KamiTessellator;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.math.Vec3d;
@@ -14,7 +15,7 @@ public class RenderEvent extends KamiEvent {
     private final Tessellator tessellator;
     private final Vec3d renderPos;
 
-    public RenderEvent(Tessellator tessellator, Vec3d renderPos) {
+    public RenderEvent(KamiTessellator tessellator, Vec3d renderPos) {
         super();
         this.tessellator = tessellator;
         this.renderPos = renderPos;

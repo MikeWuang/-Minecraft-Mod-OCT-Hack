@@ -2,6 +2,7 @@ package me.zeroeightsix.kami.command.commands;
 
 import me.zeroeightsix.kami.command.Command;
 import me.zeroeightsix.kami.command.syntax.ChunkBuilder;
+import me.zeroeightsix.kami.command.syntax.parsers.EnumParser;
 import me.zeroeightsix.kami.command.syntax.parsers.ModuleParser;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.ISettingUnknown;
@@ -16,7 +17,7 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendStringChatMessage;
 
 /**
  * Created by 086 on 18/11/2017.
- * Updated by S-B99 on 24/02/20
+ * Updated by dominikaaaa on 24/02/20
  */
 public class SetCommand extends Command {
 
@@ -24,7 +25,7 @@ public class SetCommand extends Command {
         super("set", new ChunkBuilder()
                 .append("module", true, new ModuleParser())
                 .append("setting", true)
-                .append("value", true)
+                .append("set", true, new EnumParser(new String[]{"value", "toggle"}))
                 .build());
         setDescription("Change the setting of a certain module");
     }
@@ -72,8 +73,9 @@ public class SetCommand extends Command {
             if (setting.getClass().getSimpleName().equals("EnumSetting")) {
                 arg2 = arg2.toUpperCase();
             }
-            setting.setValueFromString(arg2); /* PLEASE MAKE SURE TO USE PROPER NAMING WHEN USING ENUMS */ /* if you use improper lowercase letters it will *not* work with this command ~S-B99 */
-            sendChatMessage("Set &b" + setting.getName() + "&r to &3" + arg2 + "&r.");
+            /* PLEASE MAKE SURE TO USE PROPER NAMING WHEN USING ENUMS */ /* if you use improper lowercase letters it will *not* work with this command ie THIS_IS correct, this_is NOT ~dominikaaaa */
+            setting.setValueFromString(arg2, setting.getValueClass().getSimpleName().equals("Boolean"));
+            sendChatMessage("Set &b" + setting.getName() + "&r to &3" + setting.getValueAsString() + "&r.");
             Module.closeSettings();
         } catch (Exception e) {
             e.printStackTrace();

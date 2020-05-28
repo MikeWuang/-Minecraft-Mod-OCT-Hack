@@ -42,11 +42,10 @@ public class FakePlayer extends Module {
             };
 
     @Override
-    protected int onEnable() {
+    protected void onEnable() {
 
         if (mc.player == null || mc.world == null) {
             this.disable();
-            return 0;
         }
 
         fakePlayerIdList = new ArrayList<>();
@@ -66,7 +65,6 @@ public class FakePlayer extends Module {
 
         }
 
-        return entityId;
     }
 
     private void addFakePlayer(String uuid, String name, int entityId, int offsetX, int offsetZ) {
@@ -90,10 +88,9 @@ public class FakePlayer extends Module {
     }
 
     @Override
-    protected int onDisable() {
+    protected void onDisable() {
 
         if (mc.player == null || mc.world == null) {
-            return 0;
         }
 
         if (fakePlayerIdList != null) {
@@ -102,7 +99,6 @@ public class FakePlayer extends Module {
             }
         }
 
-        return 0;
     }
 
 }

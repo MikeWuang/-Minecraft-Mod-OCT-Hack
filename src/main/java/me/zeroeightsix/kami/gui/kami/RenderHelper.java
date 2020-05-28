@@ -157,4 +157,10 @@ public class RenderHelper {
         KamiGUI.fontRenderer.drawString(x, y, color, text);
         glDisable(GL_TEXTURE_2D);
     }
+
+    public static void disableAlpha(float v) {
+    }
+
+    public static void enableAlpha(float v) {
+    }
 }

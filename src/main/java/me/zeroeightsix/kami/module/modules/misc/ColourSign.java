@@ -15,7 +15,11 @@ import java.io.IOException;
 /**
  * Created by 086 on 8/04/2018.
  */
-@Module.Info(name = "ColourSign", description = "Allows ingame colouring of text on signs", category = Module.Category.MISC)
+@Module.Info(
+        name = "ColourSign",
+        description = "Allows ingame colouring of text on signs",
+        category = Module.Category.MISC
+)
 public class ColourSign extends Module {
 
     @EventHandler
@@ -25,17 +29,7 @@ public class ColourSign extends Module {
         }
     });
 
-//    @EventHandler
-//    public Listener<PacketEvent.Send> sendListener = new Listener<>(event -> {
-//        if (event.getPacket() instanceof CPacketUpdateSign) {
-//            String[] lines = ((CPacketUpdateSign) event.getPacket()).lines;
-//            for (int i = 0; i < 4; i++) {
-//                lines[i] = lines[i].replace(KamiMod.colour + "", KamiMod.colour + KamiMod.colour + "rr");
-//            }
-//        }
-//    });
-
-    private class KamiGuiEditSign extends GuiEditSign {
+    private static class KamiGuiEditSign extends GuiEditSign {
 
 
         public KamiGuiEditSign(TileEntitySign teSign) {

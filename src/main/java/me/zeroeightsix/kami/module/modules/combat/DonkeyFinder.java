@@ -80,8 +80,7 @@ public class DonkeyFinder extends Module {
     }
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         this.knownPlayers = new ArrayList<>();
-        return 0;
     }
 }

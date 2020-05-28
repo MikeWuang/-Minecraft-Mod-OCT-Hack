@@ -22,11 +22,15 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendChatMessage;
 /**
  * Created by 086 on 22/03/2018.
  * Updated by Qther on 05/03/20
- * Updated by S-B99 on 30/03/20
+ * Updated by dominikaaaa on 30/03/20
  */
-@Module.Info(name = "AutoFish", category = Module.Category.MISC, description = "Automatically catch fish", alwaysListening = true)
+@Module.Info(
+        name = "AutoFish",
+        category = Module.Category.MISC,
+        description = "Automatically catch fish",
+        alwaysListening = true
+)
 public class AutoFish extends Module {
-    private boolean recastHide = false;
     private static ServerData cServer;
     Random random;
 
@@ -34,10 +38,17 @@ public class AutoFish extends Module {
     private Setting<Integer> baseDelay = register(Settings.integerBuilder("Throw Delay").withValue(450).withMinimum(50).withMaximum(1000).build());
     private Setting<Integer> extraDelay = register(Settings.integerBuilder("Catch Delay").withValue(300).withMinimum(0).withMaximum(1000).build());
     private Setting<Integer> variation = register(Settings.integerBuilder("Variation").withValue(50).withMinimum(0).withMaximum(1000).build());
-    private Setting<Boolean> recast = register(Settings.booleanBuilder("Recast").withValue(false).withVisibility(v -> recastHide).build());
+    private Setting<Boolean> recast = register(Settings.booleanBuilder("Recast").withValue(false).withVisibility(v -> false).build());
+
+    public AutoFish() {
+        super();
+
+        defaultSetting.settingListener = setting -> {
+            if (defaultSetting.getValue()) defaults();
+        };
+    }
 
     public void onUpdate() {
-        if (defaultSetting.getValue()) defaults();
         if (mc.player != null && recast.getValue()) {
             mc.rightClickMouse();
             recast.setValue(false);
@@ -107,7 +118,7 @@ public class AutoFish extends Module {
         extraDelay.setValue(300);
         variation.setValue(50);
         defaultSetting.setValue(false);
-        sendChatMessage(getChatName() + "Set to defaults!");
+        sendChatMessage(getChatName() + " Set to defaults!");
         closeSettings();
     }
 }

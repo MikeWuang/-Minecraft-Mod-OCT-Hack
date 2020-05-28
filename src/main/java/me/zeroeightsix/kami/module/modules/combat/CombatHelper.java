@@ -70,21 +70,19 @@ public class CombatHelper extends Module {
             }
         }
     @Override
-    public int onEnable() {
+    public void onEnable() {
         ModuleManager.getModule("AutoTotem").enable();
         ModuleManager.getModule("OffHandGap").enable();
         ModuleManager.getModule("FastUse").enable();
         ModuleManager.getModule("AutoMend").enable();
 
-        return 0;
     }
     @Override
-    public int onDisable() {
+    public void onDisable() {
         ModuleManager.getModule("AutoTotem").disable();
         ModuleManager.getModule("OffHandGap").disable();
         ModuleManager.getModule("FastUse").disable();
         ModuleManager.getModule("AutoMend").disable();
-        return 0;
     }
 
 }

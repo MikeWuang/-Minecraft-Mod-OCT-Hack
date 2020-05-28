@@ -37,7 +37,9 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Module.Info(name = "OctCA", category = Module.Category.COMBAT, description = "Places End Crystals to kill enemies")
+import static me.zeroeightsix.kami.util.KamiTessellator.drawBoundingBoxBlockPos;
+
+@Module.Info(name = "KamiCA", category = Module.Category.COMBAT, description = "Places End Crystals to kill enemies")
 public class AOccultHackCA extends Module {
     private Setting<Boolean> place;
     private Setting<Boolean> raytrace;
@@ -269,13 +271,13 @@ public class AOccultHackCA extends Module {
             KamiTessellator.drawBox(this.render, r, g, b, 77, 63);
             KamiTessellator.release();
             KamiTessellator.prepare(7);
-            KamiTessellator.drawBoundingBoxBlockPos(this.render, 1.00f,  r, g, b, 255);
+            drawBoundingBoxBlockPos(this.render, 1.00f,  r, g, b, 255);
             } else {
                 KamiTessellator.prepare(7);
                 KamiTessellator.drawBox(this.render, this.Red.getValue(), this.Green.getValue(), this.Blue.getValue(), 77, 63);
                 KamiTessellator.release();
                 KamiTessellator.prepare(7);
-                KamiTessellator.drawBoundingBoxBlockPos(this.render, 1.00f, this.Red.getValue(), this.Green.getValue(), this.Blue.getValue(), 244);
+                drawBoundingBoxBlockPos(this.render, 1.00f, this.Red.getValue(), this.Green.getValue(), this.Blue.getValue(), 244);
             }
                 KamiTessellator.release();
         }
@@ -381,21 +383,19 @@ public class AOccultHackCA extends Module {
     }
 
     @Override
-    protected int onEnable() {
+    protected void onEnable() {
 
         if (this.alert.getValue() && AOccultHackCA.mc.world != null) {
             sendRawChatMessage("\u00A7aAutoCrystal ON");
         }
-        return 0;
     }
 
-    public int onDisable() {
+    public void onDisable() {
         if (this.alert.getValue() && AOccultHackCA.mc.world != null) {
             sendRawChatMessage("\u00A7cAutoCrystal" + ChatFormatting.RED.toString() + "OFF");
         }
         this.render = null;
         resetRotation();
-        return 0;
     }
 
     private void sendRawChatMessage(String s) {

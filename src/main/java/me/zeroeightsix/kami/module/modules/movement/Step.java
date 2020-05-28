@@ -17,9 +17,8 @@ public class Step extends Module {
     private Setting<Float> stepHeightSetting = register(Settings.floatBuilder("Step Height").withMinimum((float) 0).withMaximum((float) 6).withValue((float) 1).build());
 
 
-    public int onDisable() {
+    public void onDisable() {
         mc.player.stepHeight = 0.5F;
-        return 0;
     }
 
 

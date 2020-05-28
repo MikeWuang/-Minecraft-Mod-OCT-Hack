@@ -11,14 +11,12 @@ import me.zeroeightsix.kami.module.Module;
 public class Hunt extends Module {
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         mc.player.sendChatMessage("#follow entities");
-        return 0;
     }
     @Override
-    public int onDisable() {
+    public void onDisable() {
         mc.player.sendChatMessage("#stop");
-        return 0;
     }
 
 }

@@ -3,6 +3,7 @@ package me.zeroeightsix.kami;
 import com.google.common.base.Converter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import me.zero.alpine.EventBus;
 import me.zero.alpine.EventManager;
@@ -15,9 +16,13 @@ import me.zeroeightsix.kami.gui.rgui.component.Component;
 import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
 import me.zeroeightsix.kami.gui.rgui.util.Docking;
+import me.zeroeightsix.kami.module.MacroManager;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.module.ModuleManager;
+import me.zeroeightsix.kami.module.modules.chat.ChatEncryption;
+import me.zeroeightsix.kami.module.modules.client.CommandConfig;
 import me.zeroeightsix.kami.module.modules.hidden.RunConfig;
+import me.zeroeightsix.kami.process.TemporaryPauseProcess;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
 import me.zeroeightsix.kami.setting.SettingsRegister;
@@ -30,6 +35,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.apache.commons.io.IOUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.Display;
@@ -38,6 +45,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -47,6 +55,12 @@ import java.util.Map;
 import java.util.Optional;
 
 import static me.zeroeightsix.kami.DiscordPresence.setCustomIcons;
+
+/**
+ * Created by 086 on 7/11/2017.
+ * Updated by dominikaaaa on 25/03/19
+ * Updated by Dewy on 09/04/2020
+ */
 @Mod(
         modid = KamiMod.MODID,
         name = KamiMod.MODNAME,
@@ -56,9 +70,9 @@ public class KamiMod {
 
     public static final String MODNAME = "OCT Hack";
     public static final String MODID = "octhack";
-    public static final String MODVER = "v1.0.8";
-    public static final String MODVERSMALL = "v1.0.8";
-    public static final String MODVERBROAD = "v1.0.8";
+    public static final String MODVER = "v1.1.4"; // this is changed to v1.x.x-commit for debugging during travis releases
+    public static final String MODVERSMALL = "v1.1.4"; // shown to the user
+    public static final String MODVERBROAD = "v1.1.4"; // used for update checking
 
     public static final String MCVER = "1.12.2";
 
@@ -71,7 +85,7 @@ public class KamiMod {
     public static final char colour = '\u00A7';
     public static final char separator = '\u23d0';
 
-    private static final String KAMI_CONFIG_NAME_DEFAULT = "OCTHackConfig.json";
+    private static final String KAMI_CONFIG_NAME_DEFAULT = "OCTConfig.json";
 
     public static final Logger log = LogManager.getLogger("OCT Hack");
 
@@ -81,6 +95,8 @@ public class KamiMod {
     public static String latest; // latest version (null if no internet or exception occurred)
     public static boolean isLatest;
     public static boolean hasAskedToUpdate = false;
+
+    public static TemporaryPauseProcess pauseProcess;
 
     @Mod.Instance
     private static KamiMod INSTANCE;
@@ -100,9 +116,17 @@ public class KamiMod {
     }).buildAndRegister("");
 
     @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+
+        pauseProcess = new TemporaryPauseProcess();
+    }
+
+    @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         setCustomIcons();
-        Display.setTitle(MODNAME + " " + MODVERSMALL);
+        if (MODULE_MANAGER.getModuleT(CommandConfig.class).customTitle.getValue()) {
+            Display.setTitle(MODNAME + " " + KAMI_KANJI + " " + MODVERSMALL);
+        }
     }
 
     @Mod.EventHandler
@@ -123,12 +147,14 @@ public class KamiMod {
         commandManager = new CommandManager();
 
         Friends.initFriends();
+
+        MacroManager.INSTANCE.registerMacros();
+
+        /* Custom static Settings, which can't register normally if they're static */
         SettingsRegister.register("commandPrefix", Command.commandPrefix);
+        SettingsRegister.register("delimiterV", ChatEncryption.delimiterValue);
         loadConfiguration();
         log.info("Settings loaded");
-
-        // custom names aren't known at compile-time
-        //MODULE_MANAGER.updateLookup(); // generate the lookup table after settings are loaded to make custom module names work
 
         new RichPresence();
         log.info("Rich Presence Users init!\n");
@@ -143,7 +169,7 @@ public class KamiMod {
     }
 
     public static String getConfigName() {
-        Path config = Paths.get("OCTHackLastConfig.txt");
+        Path config = Paths.get("KAMIBlueLastConfig.txt");
         String kamiConfigName = KAMI_CONFIG_NAME_DEFAULT;
         try (BufferedReader reader = Files.newBufferedReader(config)) {
             kamiConfigName = reader.readLine();
@@ -246,5 +272,4 @@ public class KamiMod {
     public CommandManager getCommandManager() {
         return commandManager;
     }
-
 }

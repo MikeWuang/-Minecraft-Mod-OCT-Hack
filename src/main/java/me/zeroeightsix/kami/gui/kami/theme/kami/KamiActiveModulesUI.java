@@ -27,8 +27,8 @@ public class KamiActiveModulesUI extends AbstractComponentUI<me.zeroeightsix.kam
     ActiveModules activeMods;
     @Override
     public void renderComponent(me.zeroeightsix.kami.gui.kami.component.ActiveModules component, FontRenderer f) {
-        GL11.glDisable(GL11.GL_CULL_FACE);
-        GL11.glEnable(GL11.GL_BLEND);
+        glDisable(GL11.GL_CULL_FACE);
+        GL11.glEnable(GL_BLEND);
         GL11.glEnable(GL11.GL_TEXTURE_2D);
 
         FontRenderer renderer = Wrapper.getFontRenderer();

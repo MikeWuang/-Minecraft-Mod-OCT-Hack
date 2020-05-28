@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Module.Info(name = "NutGodCA               ", category = Module.Category.COMBAT, description = "Places End Crystals to kill enemies")
+@Module.Info(name = "NutGodCA", category = Module.Category.COMBAT, description = "Places End Crystals to kill enemies")
 public class ANutGodCA extends Module {
     private Setting<Boolean> place;
     private Setting<Boolean> raytrace;
@@ -383,21 +383,19 @@ public class ANutGodCA extends Module {
     }
 
     @Override
-    protected int onEnable() {
+    protected void onEnable() {
 
         if (this.alert.getValue() && ANutGodCA.mc.world != null) {
             sendRawChatMessage("\u00A7aAutoCrystal ON");
         }
-        return 0;
     }
 
-    public int onDisable() {
+    public void onDisable() {
         if (this.alert.getValue() && ANutGodCA.mc.world != null) {
             sendRawChatMessage("\u00A7cAutoCrystal" + ChatFormatting.RED.toString() + "OFF");
         }
         this.render = null;
         resetRotation();
-        return 0;
     }
 
     private void sendRawChatMessage(String s) {

@@ -42,7 +42,11 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendChatMessage;
  * @author hub
  * @since 2019-8-6
  */
-@Module.Info(name = "AutoTrap", category = Module.Category.COMBAT, description = "Traps your enemies in obsidian")
+@Module.Info(
+        name = "AutoTrap",
+        category = Module.Category.COMBAT,
+        description = "Traps your enemies in obsidian"
+)
 public class AutoTrap extends Module {
 
     private Setting<Double> range = register(Settings.doubleBuilder("Range").withMinimum(3.5).withValue(5.5).withMaximum(10.0).build());
@@ -84,8 +88,8 @@ public class AutoTrap extends Module {
     }
 
     @Override
-    protected int onEnable() {
-        if (mc.player == null || mc.player.getHealth() <= 0) return 0;
+    protected void onEnable() {
+        if (mc.player == null || mc.player.getHealth() <= 0) return;
 
         firstRun = true;
 
@@ -93,12 +97,11 @@ public class AutoTrap extends Module {
         playerHotbarSlot = mc.player.inventory.currentItem;
         lastHotbarSlot = -1;
 
-        return 0;
     }
 
     @Override
-    protected int onDisable() {
-        if (mc.player == null || mc.player.getHealth() <= 0) return 0;
+    protected void onDisable() {
+        if (mc.player == null || mc.player.getHealth() <= 0) return;
 
         if (lastHotbarSlot != playerHotbarSlot && playerHotbarSlot != -1) {
             mc.player.inventory.currentItem = playerHotbarSlot;
@@ -113,7 +116,6 @@ public class AutoTrap extends Module {
         lastHotbarSlot = -1;
 
         missingObiDisable = false;
-        return 0;
     }
 
     @Override

@@ -1,6 +1,5 @@
 package me.zeroeightsix.kami.module.modules.client;
 
-import me.zeroeightsix.kami.gui.kami.component.UnboundSlider;
 import me.zeroeightsix.kami.module.Module;
 import me.zeroeightsix.kami.setting.Setting;
 import me.zeroeightsix.kami.setting.Settings;
@@ -13,24 +12,29 @@ import static me.zeroeightsix.kami.KamiMod.MODULE_MANAGER;
 import static me.zeroeightsix.kami.util.ColourConverter.rgbToInt;
 import static me.zeroeightsix.kami.util.ColourTextFormatting.colourEnumMap;
 import static me.zeroeightsix.kami.util.ColourTextFormatting.toTextMap;
-import static me.zeroeightsix.kami.util.InfoCalculator.isNumberEven;
-import static me.zeroeightsix.kami.util.InfoCalculator.reverseNumber;
+import static me.zeroeightsix.kami.util.MathsUtils.isNumberEven;
+import static me.zeroeightsix.kami.util.MathsUtils.reverseNumber;
 import static me.zeroeightsix.kami.util.MessageSendHelper.sendDisableMessage;
 
 /**
- * @author S-B99
- * Created by S-B99 on 20/03/20
- * Updated by S-B99 on 04/04/20
+ * @author dominikaaaa
+ * Created by dominikaaaa on 20/03/20
+ * Updated by dominikaaaa on 04/04/20
  */
-@Module.Info(name = "ActiveModules        ", category = Module.Category.CLIENT, description = "Configures ActiveModules colours and modes", showOnArray = Module.ShowOnArray.OFF)
+@Module.Info(
+        name = "ActiveModules",
+        category = Module.Category.CLIENT,
+        description = "Configures ActiveModules colours and modes",
+        showOnArray = Module.ShowOnArray.OFF
+)
 public class ActiveModules extends Module {
-    public UnboundSlider potion;
     private Setting<Boolean> forgeHax = register(Settings.b("ForgeHax", false));
-    public Setting<Mode> mode = register(Settings.e("Mode", Mode.CUSTOM));
+    public Setting<Boolean> potion = register(Settings.b("Potions Move", false));
+    public Setting<Mode> mode = register(Settings.e("Mode", Mode.RAINBOW));
     private Setting<Integer> rainbowSpeed = register(Settings.integerBuilder().withName("Speed R").withValue(30).withMinimum(0).withMaximum(100).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
     public Setting<Integer> saturationR = register(Settings.integerBuilder().withName("Saturation R").withValue(117).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
     public Setting<Integer> brightnessR = register(Settings.integerBuilder().withName("Brightness R").withValue(255).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
-    public Setting<Integer> hueC = register(Settings.integerBuilder().withName("Hue C").withValue(0).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
+    public Setting<Integer> hueC = register(Settings.integerBuilder().withName("Hue C").withValue(178).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     public Setting<Integer> saturationC = register(Settings.integerBuilder().withName("Saturation C").withValue(156).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     public Setting<Integer> brightnessC = register(Settings.integerBuilder().withName("Brightness C").withValue(255).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     private Setting<Boolean> alternate = register(Settings.booleanBuilder().withName("Alternate").withValue(true).withVisibility(v -> mode.getValue().equals(Mode.INFO_OVERLAY)).build());
@@ -117,16 +121,27 @@ public class ActiveModules extends Module {
         else return rSpeed;
     }
 
-    public String fHax() {
-        if (forgeHax.getValue()) return ">";
-        else return "";
+    public String getAlignedText(String name, String hudInfo, boolean right) {
+        String aligned;
+        if (right) {
+            aligned = hudInfo + " " + name;
+        } else {
+            aligned = name + " " + hudInfo;
+        }
+
+        if (!forgeHax.getValue()) {
+            return aligned;
+        } else if (right) {
+            return aligned + "<";
+        } else {
+            return ">" + aligned;
+        }
     }
 
-    public void getAlignedText(String name, String s, boolean equals) {
+    public int fHax() {
+        return 0;
     }
 
     public enum Mode { RAINBOW, CUSTOM, CATEGORY, INFO_OVERLAY }
-    public int onDisable() { sendDisableMessage(this.getClass());
-        return 0;
-    }
+    public void onDisable() { sendDisableMessage(this.getClass()); }
 }

@@ -22,10 +22,9 @@ public class Announcer extends Module {
    private String JOIN_MESSAGES_FILE = "AtomJoinMessages.txt";
    private String LEAVE_MESSAGES_FILE = "AtomLeaveMessages.txt";
 
-   public int onEnable() {
+   public void onEnable() {
       this.prevPlayers = this.getCurrentPlayers();
       this.lastMessageTicks = System.currentTimeMillis();
-       return 0;
    }
 
    private String getJoinMessage(String name) {

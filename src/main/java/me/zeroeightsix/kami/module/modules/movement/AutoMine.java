@@ -11,14 +11,12 @@ import me.zeroeightsix.kami.module.Module;
 public class AutoMine extends Module {
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         mc.player.sendChatMessage("#mine Diamond_ore iron_ore gold_ore coal_ore");
-        return 0;
     }
     @Override
-    public int onDisable() {
+    public void onDisable() {
         mc.player.sendChatMessage("#stop");
-        return 0;
     }
 
 }

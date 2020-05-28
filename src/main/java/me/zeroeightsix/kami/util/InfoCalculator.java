@@ -7,13 +7,13 @@ import net.minecraft.util.math.MathHelper;
 import java.text.DecimalFormat;
 
 /**
- * @author S-B99
- * Created by S-B99 on 18/01/20
- * Updated by S-B99 on 06/02/20
+ * @author dominikaaaa
+ * Created by dominikaaaa on 18/01/20
+ * Updated by dominikaaaa on 06/02/20
  *
  * Speed:
- * @author S-B99
- * Created by S-B99 on 18/01/20
+ * @author dominikaaaa
+ * Created by dominikaaaa on 18/01/20
  * Credit to Seppuku for the following calculation I made more efficient and got inspiration from
  * final String bps = "BPS: " + df.format((MathHelper.sqrt(deltaX * deltaX + deltaZ * deltaZ) / tickRate));
  *
@@ -45,11 +45,11 @@ public class InfoCalculator {
     // Speed {
     private static DecimalFormat formatter = new DecimalFormat("#.#");
 
-    public static String speed(boolean useUnitKmH, Minecraft mc) {
+    public static String speed(boolean useUnitKmH, Minecraft mc, int places) {
         float currentTps = mc.timer.tickLength / 1000.0f;
         double multiply = 1.0;
         if (useUnitKmH) multiply = 3.6; // convert mps to kmh
-        return formatter.format(((MathHelper.sqrt(Math.pow(coordsDiff('x', mc), 2) + Math.pow(coordsDiff('z', mc), 2)) / currentTps)) * multiply);
+        return "" + MathsUtils.round(((MathHelper.sqrt(Math.pow(coordsDiff('x', mc), 2) + Math.pow(coordsDiff('z', mc), 2)) / currentTps)) * multiply, places);
     }
 
     private static double coordsDiff(char s, Minecraft mc) {
@@ -75,40 +75,8 @@ public class InfoCalculator {
     // }
 
     // Ticks Per Second {
-    public static String tps() {
-        return "" + Math.round(LagCompensator.INSTANCE.getTickRate());
-    }
-    // }
-
-    // Round {
-    public static double round(double value, int places) {
-        double scale = Math.pow(10, places);
-        return Math.round(value * scale) / scale;
-    }
-    // }
-
-    // Is Even {
-    public static boolean isNumberEven(int i) { return (i & 1) == 0; }
-    // }
-
-    // Reverse Number {
-    public static int reverseNumber(int num, int min, int max) { return (max + min) - num; }
-    // }
-
-    // Cardinal to Axis {
-    public static String cardinalToAxis(char cardinal) {
-        switch (cardinal) {
-            case 'N':
-                return "-Z";
-            case 'S':
-                return "+Z";
-            case 'E':
-                return "+X";
-            case 'W':
-                return "-X";
-            default:
-                return "invalid";
-        }
+    public static double tps(int places) {
+        return MathsUtils.round(LagCompensator.INSTANCE.getTickRate(), places);
     }
     // }
 

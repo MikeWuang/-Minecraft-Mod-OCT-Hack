@@ -11,10 +11,9 @@ import me.zeroeightsix.kami.module.Module;
 public class PopbobSexDupe extends Module {
 
     @Override
-    public int onEnable() {
+    public void onEnable() {
         mc.player.sendChatMessage("/kill");
         this.disable();
-        return 0;
     }
 
 }
