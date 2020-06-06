@@ -1,4 +1,4 @@
-package me.zeroeightsix.kami.module.modules.combat;
+package me.zeroeightsix.kami.module.modules.misc;
 
 import com.mojang.authlib.GameProfile;
 import me.zeroeightsix.kami.module.Module;
@@ -64,7 +64,6 @@ public class FakePlayer extends Module {
             entityId--;
 
         }
-
     }
 
     private void addFakePlayer(String uuid, String name, int entityId, int offsetX, int offsetZ) {
@@ -90,8 +89,7 @@ public class FakePlayer extends Module {
     @Override
     protected void onDisable() {
 
-        if (mc.player == null || mc.world == null) {
-        }
+        if (mc.player == null || mc.world == null) {       }
 
         if (fakePlayerIdList != null) {
             for (int id : fakePlayerIdList) {

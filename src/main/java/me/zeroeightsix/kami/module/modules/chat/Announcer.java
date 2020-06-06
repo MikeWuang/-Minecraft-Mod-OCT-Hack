@@ -11,7 +11,7 @@ import net.minecraft.network.play.client.CPacketChatMessage;
 import java.util.*;
 
 
-@Module.Info(name = "Annoucer", category = Module.Category.EXPERIMENTAL, description = "Announcer")
+@Module.Info(name = "Annoucer                       ", category = Module.Category.CHAT, description = "Announcer")
 public class Announcer extends Module {
    private Setting joinMsg = this.register(Settings.b("Join", true));
    private Setting leaveMsg = this.register(Settings.b("Leave", true));

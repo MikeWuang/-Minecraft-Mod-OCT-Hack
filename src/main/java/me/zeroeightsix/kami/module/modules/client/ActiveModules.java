@@ -22,19 +22,18 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendDisableMessage;
  * Updated by dominikaaaa on 04/04/20
  */
 @Module.Info(
-        name = "ActiveModules",
+        name = "ActiveModules               ",
         category = Module.Category.CLIENT,
         description = "Configures ActiveModules colours and modes",
         showOnArray = Module.ShowOnArray.OFF
 )
 public class ActiveModules extends Module {
-    private Setting<Boolean> forgeHax = register(Settings.b("ForgeHax", false));
     public Setting<Boolean> potion = register(Settings.b("Potions Move", false));
-    public Setting<Mode> mode = register(Settings.e("Mode", Mode.RAINBOW));
+    public Setting<Mode> mode = register(Settings.e("Mode", Mode.CUSTOM));
     private Setting<Integer> rainbowSpeed = register(Settings.integerBuilder().withName("Speed R").withValue(30).withMinimum(0).withMaximum(100).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
     public Setting<Integer> saturationR = register(Settings.integerBuilder().withName("Saturation R").withValue(117).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
     public Setting<Integer> brightnessR = register(Settings.integerBuilder().withName("Brightness R").withValue(255).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.RAINBOW)).build());
-    public Setting<Integer> hueC = register(Settings.integerBuilder().withName("Hue C").withValue(178).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
+    public Setting<Integer> hueC = register(Settings.integerBuilder().withName("Hue C").withValue(108).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     public Setting<Integer> saturationC = register(Settings.integerBuilder().withName("Saturation C").withValue(156).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     public Setting<Integer> brightnessC = register(Settings.integerBuilder().withName("Brightness C").withValue(255).withMinimum(0).withMaximum(255).withVisibility(v -> mode.getValue().equals(Mode.CUSTOM)).build());
     private Setting<Boolean> alternate = register(Settings.booleanBuilder().withName("Alternate").withValue(true).withVisibility(v -> mode.getValue().equals(Mode.INFO_OVERLAY)).build());
@@ -73,8 +72,7 @@ public class ActiveModules extends Module {
             case STRIKETHROUGH:
             case OBFUSCATED:
             case BOLD:
-                localColor = colourEnumMap.get(TextFormatting.WHITE).colorLocal;
-                break;
+                localColor = colourEnumMap.get(TextFormatting.WHITE).colorLocal; break;
             default:
                 localColor = colourEnumMap.get(infoGetSetting(isOne)).colorLocal;
         }
@@ -94,24 +92,15 @@ public class ActiveModules extends Module {
 
     public int getCategoryColour(Module module) {
         switch (module.getCategory()) {
-            case CHAT:
-                return rgbToInt(getRgb(chat.getValue(), 0), getRgb(chat.getValue(), 1), getRgb(chat.getValue(), 2));
-            case COMBAT:
-                return rgbToInt(getRgb(combat.getValue(), 0), getRgb(combat.getValue(), 1), getRgb(combat.getValue(), 2));
-            case EXPERIMENTAL:
-                return rgbToInt(getRgb(experimental.getValue(), 0), getRgb(experimental.getValue(), 1), getRgb(experimental.getValue(), 2));
-            case CLIENT:
-                return rgbToInt(getRgb(client.getValue(), 0), getRgb(client.getValue(), 1), getRgb(client.getValue(), 2));
-            case RENDER:
-                return rgbToInt(getRgb(render.getValue(), 0), getRgb(render.getValue(), 1), getRgb(render.getValue(), 2));
-            case PLAYER:
-                return rgbToInt(getRgb(player.getValue(), 0), getRgb(player.getValue(), 1), getRgb(player.getValue(), 2));
-            case MOVEMENT:
-                return rgbToInt(getRgb(movement.getValue(), 0), getRgb(movement.getValue(), 1), getRgb(movement.getValue(), 2));
-            case MISC:
-                return rgbToInt(getRgb(misc.getValue(), 0), getRgb(misc.getValue(), 1), getRgb(misc.getValue(), 2));
-            default:
-                return rgbToInt(1, 1, 1);
+            case CHAT: return rgbToInt(getRgb(chat.getValue(), 0), getRgb(chat.getValue(), 1), getRgb(chat.getValue(), 2));
+            case COMBAT: return rgbToInt(getRgb(combat.getValue(), 0), getRgb(combat.getValue(), 1), getRgb(combat.getValue(), 2));
+            case EXPERIMENTAL: return rgbToInt(getRgb(experimental.getValue(), 0), getRgb(experimental.getValue(), 1), getRgb(experimental.getValue(), 2));
+            case CLIENT: return rgbToInt(getRgb(client.getValue(), 0), getRgb(client.getValue(), 1), getRgb(client.getValue(), 2));
+            case RENDER: return rgbToInt(getRgb(render.getValue(), 0), getRgb(render.getValue(), 1), getRgb(render.getValue(), 2));
+            case PLAYER: return rgbToInt(getRgb(player.getValue(), 0), getRgb(player.getValue(), 1), getRgb(player.getValue(), 2));
+            case MOVEMENT: return rgbToInt(getRgb(movement.getValue(), 0), getRgb(movement.getValue(), 1), getRgb(movement.getValue(), 2));
+            case MISC: return rgbToInt(getRgb(misc.getValue(), 0), getRgb(misc.getValue(), 1), getRgb(misc.getValue(), 2));
+            default: return rgbToInt(1, 1, 1);
         }
     }
 
@@ -128,18 +117,7 @@ public class ActiveModules extends Module {
         } else {
             aligned = name + " " + hudInfo;
         }
-
-        if (!forgeHax.getValue()) {
-            return aligned;
-        } else if (right) {
-            return aligned + "<";
-        } else {
-            return ">" + aligned;
-        }
-    }
-
-    public int fHax() {
-        return 0;
+        return aligned;
     }
 
     public enum Mode { RAINBOW, CUSTOM, CATEGORY, INFO_OVERLAY }

@@ -157,7 +157,6 @@ public class AMegynCA extends Module {
         }
 
         resetRotation();
-
     }
 
     private void sendChatMessage(String s) {

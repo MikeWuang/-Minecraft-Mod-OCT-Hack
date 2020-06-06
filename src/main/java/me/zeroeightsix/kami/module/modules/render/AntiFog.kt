@@ -8,7 +8,7 @@ import me.zeroeightsix.kami.setting.Settings
  * Created by 086 on 9/04/2018.
  */
 @Module.Info(
-        name = "AntiFog",
+        name = "AntiFog                          ",
         description = "Disables or reduces fog",
         category = Module.Category.RENDER
 )

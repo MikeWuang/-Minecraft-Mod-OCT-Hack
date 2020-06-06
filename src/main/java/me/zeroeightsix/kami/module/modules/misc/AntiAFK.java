@@ -23,7 +23,7 @@ import static me.zeroeightsix.kami.util.MessageSendHelper.sendServerMessage;
  * TODO: Render which chunk is selected 
  */
 @Module.Info(
-        name = "AntiAFK",
+        name = "AntiAFK                          ",
         category = Module.Category.MISC,
         description = "Prevents being kicked for AFK"
 )

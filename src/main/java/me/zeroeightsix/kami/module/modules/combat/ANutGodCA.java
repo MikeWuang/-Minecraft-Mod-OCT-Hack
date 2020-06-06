@@ -37,7 +37,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-@Module.Info(name = "NutGodCA", category = Module.Category.COMBAT, description = "Places End Crystals to kill enemies")
+@Module.Info(name = "NutGodCA               ", category = Module.Category.COMBAT, description = "Places End Crystals to kill enemies")
 public class ANutGodCA extends Module {
     private Setting<Boolean> place;
     private Setting<Boolean> raytrace;

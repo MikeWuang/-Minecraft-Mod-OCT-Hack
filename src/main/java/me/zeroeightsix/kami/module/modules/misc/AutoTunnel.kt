@@ -1,6 +1,9 @@
 package me.zeroeightsix.kami.module.modules.misc
 
 import baritone.api.BaritoneAPI
+import me.zero.alpine.listener.EventHandler
+import me.zero.alpine.listener.EventHook
+import me.zero.alpine.listener.Listener
 import me.zeroeightsix.kami.KamiMod.MODULE_MANAGER
 import me.zeroeightsix.kami.module.Module
 import me.zeroeightsix.kami.module.modules.movement.AutoWalk
@@ -9,14 +12,16 @@ import me.zeroeightsix.kami.setting.Settings
 import me.zeroeightsix.kami.util.MathsUtils.CardinalMain
 import me.zeroeightsix.kami.util.MathsUtils.getPlayerMainCardinal
 import me.zeroeightsix.kami.util.MessageSendHelper
+import net.minecraftforge.fml.common.network.FMLNetworkEvent
 
 /**
  * @author dominikaaaa
+ * Updated by pNoName on 25/05/20
  */
 @Module.Info(
         name = "AutoTunnel",
         description = "Automatically tunnels forward, at a given size",
-        category = Module.Category.MISC
+        category = Module.Category.EXPERIMENTAL
 )
 class AutoTunnel : Module() {
     private var height = register(Settings.integerBuilder("Height").withRange(1, 10).withValue(2).build())
@@ -44,7 +49,13 @@ class AutoTunnel : Module() {
     }
 
     private fun sendTunnel() {
-        val current = arrayOf("tunnel", height.value.toString(), width.value.toString(), "1000000")
+        var current = arrayOf("")
+        if (height.value == 2 && width.value == 1) {
+            current = arrayOf("tunnel")
+        }
+        else {
+            current = arrayOf("tunnel", height.value.toString(), width.value.toString(), "1000000")
+        }
 
         if (!current.contentEquals(lastCommand)) {
             lastCommand = current
@@ -64,4 +75,14 @@ class AutoTunnel : Module() {
         }
         lastCommand = arrayOf("")
     }
+
+    @EventHandler
+    private val clientDisconnect = Listener(EventHook { event: FMLNetworkEvent.ClientDisconnectionFromServerEvent ->
+        BaritoneAPI.getProvider().primaryBaritone.pathingBehavior.cancelEverything()
+    })
+
+    @EventHandler
+    private val serverDisconnect = Listener(EventHook { event: FMLNetworkEvent.ServerDisconnectionFromClientEvent ->
+        BaritoneAPI.getProvider().primaryBaritone.pathingBehavior.cancelEverything()
+    })
 }

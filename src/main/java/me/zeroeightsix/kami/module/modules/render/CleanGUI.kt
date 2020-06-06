@@ -10,7 +10,7 @@ import me.zeroeightsix.kami.setting.Settings
  */
 @Module.Info(
         name = "CleanGUI",
-        category = Module.Category.RENDER,
+        category = Module.Category.CLIENT,
         showOnArray = Module.ShowOnArray.OFF,
         description = "Modifies parts of the GUI to be transparent"
 )

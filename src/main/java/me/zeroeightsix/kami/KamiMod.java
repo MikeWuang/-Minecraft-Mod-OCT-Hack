@@ -70,17 +70,20 @@ public class KamiMod {
 
     public static final String MODNAME = "OCT Hack";
     public static final String MODID = "octhack";
-    public static final String MODVER = "v1.1.4"; // this is changed to v1.x.x-commit for debugging during travis releases
-    public static final String MODVERSMALL = "v1.1.4"; // shown to the user
+    public static final String MODVER = "v1.1.5"; // this is changed to v1.x.x-commit for debugging during travis releases
+    public static final String MODVERSMALL = "v1.1.5"; // shown to the user
     public static final String MODVERBROAD = "v1.1.4"; // used for update checking
 
     public static final String MCVER = "1.12.2";
 
     public static final String APP_ID = "711088988605120573";
 
+    private static final String UPDATE_JSON = "https://raw.githubusercontent.com/kami-blue/assets/assets/assets/updateChecker.json";
     public static final String DONATORS_JSON = "https://raw.githubusercontent.com/kami-blue/assets/assets/assets/donators.json";
-    public static final String CAPES_JSON = "https://raw.githubusercontent.com/OccultMC/assets/capes/assets/capes.json";
-    public static final String GITHUB_LINK = "https://www.github.com/OccultMC";
+    public static final String CAPES_JSON = "https://raw.githubusercontent.com/OccultMC/assets/master/capes.json";
+    public static final String GITHUB_LINK = "https://github.com/OccultMC";
+    public static final String WEBSITE_LINK = "https://pornhub.com";
+
     public static final String KAMI_KANJI = "OCT Hack";
     public static final char colour = '\u00A7';
     public static final char separator = '\u23d0';
@@ -117,6 +120,7 @@ public class KamiMod {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
+        updateCheck();
 
         pauseProcess = new TemporaryPauseProcess();
     }
@@ -125,7 +129,7 @@ public class KamiMod {
     public void postInit(FMLPostInitializationEvent event) {
         setCustomIcons();
         if (MODULE_MANAGER.getModuleT(CommandConfig.class).customTitle.getValue()) {
-            Display.setTitle(MODNAME + " " + KAMI_KANJI + " " + MODVERSMALL);
+            Display.setTitle(MODNAME + " " + MODVERSMALL);
         }
     }
 
@@ -169,7 +173,7 @@ public class KamiMod {
     }
 
     public static String getConfigName() {
-        Path config = Paths.get("KAMIBlueLastConfig.txt");
+        Path config = Paths.get("OCTLastConfig.txt");
         String kamiConfigName = KAMI_CONFIG_NAME_DEFAULT;
         try (BufferedReader reader = Files.newBufferedReader(config)) {
             kamiConfigName = reader.readLine();
@@ -271,5 +275,30 @@ public class KamiMod {
 
     public CommandManager getCommandManager() {
         return commandManager;
+    }
+
+    public void updateCheck() {
+        try {
+            KamiMod.log.info("Attempting KAMI Blue update check...");
+
+            JsonParser parser = new JsonParser();
+            String latestVersion = parser.parse(IOUtils.toString(new URL(UPDATE_JSON))).getAsJsonObject().getAsJsonObject("version").get(MCVER + "-latest").getAsString();
+
+            isLatest = latestVersion.equals(MODVERBROAD);
+            latest = latestVersion;
+
+            if (!isLatest) {
+                KamiMod.log.warn("You are running an outdated version of KAMI Blue.\nCurrent: " + MODVERBROAD + "\nLatest: " + latestVersion);
+
+                return;
+            }
+
+            KamiMod.log.info("Your KAMI Blue (" + MODVERBROAD + ") is up-to-date with the latest stable release.");
+        } catch (IOException e) {
+            latest = null;
+
+            KamiMod.log.error("Oes noes! An exception was thrown during the update check.");
+            e.printStackTrace();
+        }
     }
 }

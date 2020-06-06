@@ -7,7 +7,7 @@ import me.zeroeightsix.kami.setting.Settings
  * Created by 086 on 24/12/2017.
  */
 @Module.Info(
-        name = "AutoJump",
+        name = "AutoJump                       ",
         category = Module.Category.MOVEMENT,
         description = "Automatically jumps if possible"
 )

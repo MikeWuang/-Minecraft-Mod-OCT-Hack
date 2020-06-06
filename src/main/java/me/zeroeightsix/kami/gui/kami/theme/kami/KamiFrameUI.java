@@ -10,6 +10,7 @@ import me.zeroeightsix.kami.gui.rgui.component.container.use.Frame;
 import me.zeroeightsix.kami.gui.rgui.component.listen.MouseListener;
 import me.zeroeightsix.kami.gui.rgui.component.listen.UpdateListener;
 import me.zeroeightsix.kami.gui.rgui.poof.use.FramePoof;
+import static me.zeroeightsix.kami.KamiMod.MODULE_MANAGER;
 import me.zeroeightsix.kami.gui.rgui.render.AbstractComponentUI;
 import me.zeroeightsix.kami.gui.rgui.render.font.FontRenderer;
 import me.zeroeightsix.kami.gui.rgui.util.ContainerHelper;
@@ -17,6 +18,8 @@ import me.zeroeightsix.kami.gui.rgui.util.Docking;
 import me.zeroeightsix.kami.util.Bind;
 import me.zeroeightsix.kami.util.ColourHolder;
 import me.zeroeightsix.kami.util.Wrapper;
+
+import java.awt.*;
 
 import static me.zeroeightsix.kami.gui.kami.theme.kami.KamiGuiColors.GuiC;
 import static me.zeroeightsix.kami.util.ColourConverter.toF;
@@ -34,6 +37,7 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
     Component xLineComponent = null;
     Component centerXComponent = null;
     Component centerYComponent = null;
+    public Color color;
     boolean centerX = false;
     boolean centerY = false;
     int xLineOffset = 0;
@@ -47,12 +51,9 @@ public class KamiFrameUI<T extends Frame> extends AbstractComponentUI<Frame> {
         glDisable(GL_TEXTURE_2D);
 
         glColor4f(.0f, .0f, .0f, .6f);
-        RenderHelper.drawFilledRectangle(0, 0, component.getWidth(), component.getHeight()); // Main window
+        RenderHelper.drawRoundedRectangle(0, 0, component.getWidth(), component.getHeight(), 3); // Main window
         glColor3f(toF(GuiC.windowOutline.color.getRed()), toF(GuiC.windowOutline.color.getGreen()), toF(GuiC.windowOutline.color.getBlue()));
-        glLineWidth(GuiC.windowOutlineWidth.aFloat);
-        RenderHelper.drawRectangle(0, 0, component.getWidth(), component.getHeight()); // Border / Outline
-        glColor3f(toF(GuiC.windowOutline.color.getRed()), toF(GuiC.windowOutline.color.getGreen()), toF(GuiC.windowOutline.color.getBlue()));
-        RenderHelper.drawFilledRectangle(0, 0, component.getWidth(), ff.getStringHeight(component.getTitle())+ 1);
+        RenderHelper.drawRoundedRectangle(0, 0, component.getWidth(), ff.getStringHeight(component.getTitle())+ 1,1);
 
         glColor3f(1, 1, 1);
         ff.drawString(component.getWidth() / 2 - ff.getStringWidth(component.getTitle()) / 2, 1, component.getTitle());

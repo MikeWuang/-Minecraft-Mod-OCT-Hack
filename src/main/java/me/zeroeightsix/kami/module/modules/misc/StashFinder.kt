@@ -18,7 +18,7 @@ import kotlin.math.roundToInt
  */
 @Module.Info(
         name = "StashFinder",
-        category = Module.Category.MISC,
+        category = Module.Category.EXPERIMENTAL,
         description = "Logs storage units in render distance."
 )
 class StashFinder : Module() {

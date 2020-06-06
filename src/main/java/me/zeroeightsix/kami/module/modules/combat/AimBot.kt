@@ -19,7 +19,7 @@ import kotlin.math.atan2
  * Created by Dewy on the 16th of April, 2020
  */
 @Module.Info(
-        name = "AimBot",
+        name = "AimBot                           ",
         description = "Automatically aims at entities for you.",
         category = Module.Category.COMBAT
 )
