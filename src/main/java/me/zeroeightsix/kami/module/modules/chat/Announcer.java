@@ -19,8 +19,8 @@ public class Announcer extends Module {
    private Setting messageDelaySecs = this.register(Settings.d("DelaySeconds", 5.0D));
    private List prevPlayers;
    private long lastMessageTicks;
-   private String JOIN_MESSAGES_FILE = "AtomJoinMessages.txt";
-   private String LEAVE_MESSAGES_FILE = "AtomLeaveMessages.txt";
+   private String JOIN_MESSAGES_FILE = "OCTHackJoinMessages.txt";
+   private String LEAVE_MESSAGES_FILE = "OCTHackLeaveMessages.txt";
 
    public void onEnable() {
       this.prevPlayers = this.getCurrentPlayers();
